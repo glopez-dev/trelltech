@@ -4,6 +4,10 @@
 
 Model View ViewModel
 
+**Resources** :
+
+- https://tech.groww.in/apply-mvvm-in-react-native-app-ad77fa0f851b
+
 ### How to Use MVVM with React Native?
 
 When you are developing a complex project with React Native, you may not be able to maintain the code and structure with ease. MVVM architecture makes the code manageable and ensures that it is scalable.
@@ -175,3 +179,34 @@ This is your source for accessing the data; from here, the `ViewModel` and `View
 This part of the architecture will find databases, network layers, and services. Your logic should be restricted to helping the model send the necessary updates to the View.
 
 This is your MVVM architecture. However, there is an extra component that you will use to bind these elements together, and it is known as a provider. The provider is not part of the MVVM architecture but will be used when creating the app solution.
+
+### Provider
+
+When working with `ViewModel`, you will need to inject dependencies that can help quickly collect the data and send it to the `View`.
+
+That’s where the provider will help. The instances in the `ViewModel ` are passed to the `ViewController` through this block after injecting the necessary dependencies.
+
+This block doesn’t carry any logic. It is designed to connect the different blocks properly.
+
+```js
+import React from "react";
+import { inject } from "mobx-react";
+import PokemonController from "./PokemonController";
+import PokemonViewModel from "./PokemonViewModel";
+import RootStore from "../../models/RootStore";
+
+@inject(RootStore.type.POKEMON_MODEL)
+class PokemonProvider extends React.Component {
+  constructor(props) {
+    super(props);
+    const pokemonModel = props[RootStore.type.POKEMON_MODEL];
+    this.viewModel = new PokemonViewModel(pokemonModel);
+  }
+
+  render() {
+    return <PokemonController viewModel={this.viewModel} />;
+  }
+}
+
+export default PokemonProvider;
+```
