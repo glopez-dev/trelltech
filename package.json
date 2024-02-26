@@ -1,0 +1,22 @@
+{
+  "name": "t-dev-600-par_42",
+  "version": "1.0.0",
+  "description": "A project management app",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpitechMscProPromo2026/T-DEV-600-PAR_42.git"
+  },
+  "author": "LOPEZ Gabriel, Meimoun Elone, RAMDANI Amin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpitechMscProPromo2026/T-DEV-600-PAR_42/issues"
+  },
+  "homepage": "https://github.com/EpitechMscProPromo2026/T-DEV-600-PAR_42#readme"
+}
