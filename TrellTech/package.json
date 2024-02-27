@@ -9,11 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@gluestack-style/react": "^1.0.48",
+    "@gluestack-ui/themed": "^1.1.8",
     "expo": "~50.0.7",
+    "expo-auth-session": "~5.4.0",
+    "expo-crypto": "~12.8.1",
     "expo-status-bar": "~1.11.1",
     "module-alias": "^2.2.3",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-native": "0.73.4",
+    "react-native-svg": "^13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
