@@ -9,13 +9,11 @@
   },
   "content": [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./tests/**/*.{js,jsx,ts,tsx}",
+    "./tests/**/*.{js,jsx,ts,tsx}"
   ],
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
     "components/__tests__/components/authentication/AuthContext-test.js"
-  ],
+  ]
 }

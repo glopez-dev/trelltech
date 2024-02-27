@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Navigator() { 
 
-    const session = useSession();
+    const { session }= useSession();
 
     return (
         <NavigationContainer>
@@ -36,7 +36,6 @@ export default function Navigator() {
                         <Stack.Screen name="Login" component={Login} />
                     </>
                 )}
-                <Stack.Screen name="Home" component={HomeScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
