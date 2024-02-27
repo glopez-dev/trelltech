@@ -35,6 +35,7 @@ export default function Navigator() {
             <Stack.Navigator>
                 { session ? (
                     <>
+                        {/* Logged in screens */}
                         <Stack.Screen name="Home" component={HomeScreen} />
                     </>
                 ) : (
