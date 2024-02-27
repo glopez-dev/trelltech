@@ -1,5 +1,14 @@
 # T-DEV-600-PAR_42
 
+## Technos
+
+- React Native
+- TypeScript
+- Jest
+- Expo
+- Gluestack UI
+- React Navigation [https://reactnavigation.org/docs/hello-react-navigation]()
+
 ## Architecture
 
 Model View ViewModel
