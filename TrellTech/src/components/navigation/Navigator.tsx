@@ -20,6 +20,12 @@ import { useSession } from '@src/components/authentication/SessionProvider';
 const Stack = createNativeStackNavigator();
 
 
+/**
+ * Function representing the Navigator component.
+ * Redirects to the Login page if the user is not logged in, otherwise redirects to the Home page.
+ *
+ * @return {JSX.Element} The navigation container with conditional rendering based on the session.
+ */
 export default function Navigator() { 
 
     const { session }= useSession();
