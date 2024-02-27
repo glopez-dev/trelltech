@@ -16,3 +16,5 @@ interface IModel {
     create(model: IModel): IModel;
 
 }
+
+export default IModel;
