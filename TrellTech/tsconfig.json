@@ -1,19 +1,6 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "paths": {
-      "@src/*": [
-        "./src/*"
-      ]
-    }
-  },
-  "content": [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./tests/**/*.{js,jsx,ts,tsx}"
-  ],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "components/__tests__/components/authentication/AuthContext-test.js"
-  ]
+    "strict": true
+  }
 }
