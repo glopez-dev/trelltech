@@ -18,8 +18,6 @@ export default class Board {
     }
    
 
-   
-
     static async createBoard(displayname: string, id0rganization: TrelloID): Promise<Board> {
         try {
             const response = await axios.post(`https://api.trello.com/1/boards/?name=${displayname}&key=${key}&token=${token}&idOrganization=${id0rganization}`);

@@ -33,16 +33,10 @@ export default function Navigator() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                { session ? (
-                    <>
-                        {/* Logged in screens */}
+             
+                     
                         <Stack.Screen name="Home" component={HomeScreen} />
-                    </>
-                ) : (
-                    <>
-                        <Stack.Screen name="Login" component={Login} />
-                    </>
-                )}
+
             </Stack.Navigator>
         </NavigationContainer>
     );
