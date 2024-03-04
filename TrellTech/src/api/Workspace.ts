@@ -1,60 +1,61 @@
 import axios from "axios";
-class WorkspaceViewModel {
+import dotenv from 'dotenv';
+import WorkspaceData from "@src/types/workspaceData";
+dotenv.config();
 
-    displayname: string;
-    id: string;
+const key = process.env.KEY;
+const token = process.env.TOKEN;
 
-    constructor(displayname: string, id: string) {
-        this.displayname = displayname;
-        this.id = id;
+export default class Workspace {
+   
+
+    constructor(data: WorkspaceData) {
+        for (const key in data) {
+            this[key] = data[key];
+        }
     }
 
-    async createWorkspace() {
+    static async createWorkspace(displayname: string): Promise<Workspace> {
         try {
-            await axios.post("https://api.trello.com/1/boards/?key=791445c8609a53b81f05ca51b836f1c8&token=ATTA3abab223c6b99cf69dc04e56ec8bccf093bf625555a0f252789df324c1df5515FF5D4BE4", {
-                displayname: this.displayname,
-            });
+            const response = await axios.post(`https://api.trello.com/1/organizations?displayName=${displayname}&key=${key}&token=${token}`);
+            return new Workspace(response.data);
         } catch (error) {
-            console.error("Error creating workspace:", error);
+            console.error("Error creating workspace:", error.message);
             throw error;
         }
     }
 
-    async getWorkspaces() {
+    async getWorkspaces(id: string) {
         try {
-            const response = await axios.get("https://api.trello.com/1/organizations/{id}?key=APIKey&token=APIToken");
+            const response = await axios.get(`https://api.trello.com/1/organizations/${id}?key=${key}&token=${token}`);
             return response.data;
         } catch (error) {
-            console.error("Error getting workspaces:", error);
+            console.error("Error getting workspace:", error.message);
             throw error;
         }
     }
 
-    async deleteWorkspace() {
+    async deleteWorkspace(id: string) {
         try {
-            await axios.delete(`https://api.trello.com/1/organizations/{id}?key=APIKey&token=APIToken`);
+            const response = await axios.delete(`https://api.trello.com/1/organizations/${id}?key=${key}&token=${token}`);
+            return response.data;
         } catch (error) {
-            console.error("Error deleting workspace:", error);
+            console.error("Error deleting workspace:", error.message);
             throw error;
         }
     }
 
-    async updateWorkspace() {
+    async updateWorkspace(id: string) {
         try {
-            await axios.put(`https://api.trello.com/1/organizations/{id}?key=APIKey&token=APIToken`, {
-                displayname: this.displayname,
+            const response = await axios.put(`https://api.trello.com/1/organizations/${id}?key=${key}&token=${token}`, {
+                displayName: this.displayname
             });
-        }
-        catch (error) {
-            console.error("Error updating workspace:", error);
+            return response.data;
+        } catch (error) {
+            console.error("Error updating workspace:", error.message);
             throw error;
         }
-
     }
-
 }
 
-
-
-export default WorkspaceViewModel
 
