@@ -147,12 +147,17 @@ export default class Workspace implements WorkspaceData {
         }
     }
 
+    /**
+     * Retrieves the members of the workspace from the API.
+     *
+     * @return {Promise<Record<string, Member>>} A promise that resolves to a record of members
+     */
     public async getMembers(): Promise<Record<string, Member>> {
         const id = this.id;
         const baseURL = Workspace.baseURL;
         const key = Workspace.APIKey;
         const token = Workspace.APIToken;
-        const url = `${baseURL}/organizations/${id}/members?key=${key}&token=${token}`;
+        const url = `${baseURL}/${id}/members?key=${key}&token=${token}`;
 
         try {
             const response = await axios.get(url);
