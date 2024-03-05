@@ -5,7 +5,7 @@ export $(cat .env) > /dev/null
 
 command="npm test"
 
-echo "Executing tests before pushing"
+echo "Executing tests before commiting"
 
 $command
 
