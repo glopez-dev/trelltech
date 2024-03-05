@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import Member, { MemberData } from "@src/api/Member";
 
 interface WorkspaceData {
     /* Mandatory */
@@ -44,7 +45,6 @@ export default class Workspace implements WorkspaceData {
             return new Workspace(response.data);
         } catch (error) {
             console.error("Error creating workspace:", error.message);
-            throw error;
         }
     }
 
@@ -79,10 +79,10 @@ export default class Workspace implements WorkspaceData {
         try {
             const response = await axios.put(url);
 
-            return response.status === 200 ? this : null;
+            return this;
         } catch (error) {
             console.error("Error updating workspace:", error.message);
-            throw error;
+            return null;
         }
     }
 
@@ -121,10 +121,10 @@ export default class Workspace implements WorkspaceData {
 
         try {
             const response = await axios.delete(url);
-            return response.status === 200 ? true : false;
+            return true;
         } catch (error) {
             console.error("Error deleting workspace:", error.message);
-            throw error;
+            return false;
         }
     }
 
@@ -141,10 +141,32 @@ export default class Workspace implements WorkspaceData {
 
         try {
             const response = await axios.delete(url);
-            return response.status === 200 ? true : false;
+            return (response.status === 200);
         } catch (error) {
             console.error("Error deleting workspace:", error.message);
-            throw error;
+        }
+    }
+
+    public async getMembers(): Promise<Record<string, Member>> {
+        const id = this.id;
+        const baseURL = Workspace.baseURL;
+        const key = Workspace.APIKey;
+        const token = Workspace.APIToken;
+        const url = `${baseURL}/organizations/${id}/members?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get(url);
+            const members: Record<string, Member> = {};
+
+            response.data.map((memberData: MemberData) => {
+                const member = new Member(memberData);
+                members[member.id] = member;
+            });
+
+            return members;
+        } catch (error) {
+            console.error("Error getting workspace members:", error.message);
+            return null;
         }
     }
 

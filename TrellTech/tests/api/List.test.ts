@@ -1,4 +1,5 @@
 import { jest, beforeAll, describe, expect, it } from '@jest/globals';
+import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
 import List from '@src/api/List';
 
@@ -6,10 +7,16 @@ import List from '@src/api/List';
 describe('List class', () => {
 
     let list: List;
+    let organization: Workspace;
     let board: Board;
 
+
     beforeAll(async () => {
-        board = await Board.create("My Board");
+        organization = await Workspace.create("Test Organization");
+    });
+
+    beforeAll(async () => {
+        board = await Board.create("My Board", organization.id);
     });
 
     it('should create a new List', async () => {

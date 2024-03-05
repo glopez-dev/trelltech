@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import List from "@src/api/List";
 
 interface BoardData {
     /* Mandatory */
@@ -26,20 +27,31 @@ export default class Board implements BoardData {
     closed: boolean
     idOrganization: string
 
+    /** 
+    * A Record of thelists associated with this board 
+    * Allows to access the list by its ID. 
+    */
+    lists: Record<string, List>
 
-    public static async create(name: string): Promise<Board> {
+
+    public static async create(name: string, idOrganization: string): Promise<Board> {
         const baseURL = Board.baseURL;
-        const token = Board.APIToken;
-        const key = Board.APIKey;
-        const encodedName = encodeURIComponent(name);
 
-        const url = `${baseURL}boards?key=${key}&token=${token}&name=${encodedName}`
+        const queryParams: string = new URLSearchParams({
+            token: Board.APIToken,
+            key: Board.APIKey,
+            name: name,
+            idOrganization: idOrganization,
+        }).toString();
+
+        const url = `${baseURL}boards?${queryParams}`;
 
         try {
             const response = await axios.post(url);
             return new Board(response.data);
         } catch (error) {
-            console.error("Error creating board:", error.message);
+            console.error("Error creating board:", error.message, "\nServer error message:", error.response.data.message);
+            return null;
         }
     }
 

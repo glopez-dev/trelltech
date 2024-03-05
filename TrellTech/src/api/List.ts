@@ -25,26 +25,26 @@ export default class List {
      * Creates a new list with the given name and associates it with the specified board.
      *
      * @param {string} name - the name of the new list
-     * @param {string} boardId - the ID of the board to associate the new list with
+     * @param {string} idBoard - the ID of the board to associate the new list with
      * @return {Promise<List>} a Promise that resolves to the newly created List object, or null if an error occurs
      */
-    public static async create(name: string, boardId: string): Promise<List> {
+    public static async create(name: string, idBoard: string): Promise<List> {
         const baseURL = List.baseURL;
 
         const queryParams: string = new URLSearchParams({
             key: List.APIKey,
             token: List.APIToken,
-            name: encodeURIComponent(name),
-            idBoard: boardId
+            name: name,
+            idBoard: idBoard,
         }).toString();
 
-        const url = `${baseURL}/lists?${queryParams}`;
+        const url = `${baseURL}?${queryParams}`;
 
         try {
             const response = await axios.post(url);
             return new List(response.data);
         } catch (error) {
-            console.error("Error creating list:", error.message);
+            console.error("Error creating list:", error);
             return null;
         }
     }
@@ -61,6 +61,7 @@ export default class List {
      * @return {Promise<List>} The updated list object, or null if an error occurs.
      */
     public async update(): Promise<List> {
+        const baseURL = List.baseURL;
         const id = this.id;
         const queryParams: string = new URLSearchParams({
             key: List.APIKey,
@@ -68,13 +69,13 @@ export default class List {
             name: this.name
         }).toString();
 
-        const url = `${List.baseURL}/${this.idBoard}/lists/${id}?${queryParams}`;
+        const url = `${baseURL}/${id}?${queryParams}`;
 
         try {
             const response = await axios.put(url);
             return this;
         } catch (error) {
-            console.error("Error updating list:", error.message);
+            console.error("Error updating list:", error);
             return null;
         }
     }
@@ -89,7 +90,7 @@ export default class List {
         const baseURL = List.baseURL;
         const key = List.APIKey;
         const token = List.APIToken;
-        const url = `${baseURL}/lists/${id}?key=${key}&token=${token}`;
+        const url = `${baseURL}/${id}?key=${key}&token=${token}`;
 
         try {
             const response = await axios.get(url);
@@ -101,22 +102,27 @@ export default class List {
     }
 
     /**
-     * Asynchronously deletes the instance of List it's called on.
+     * Asynchronously closes (archives) the list by sending a PUT request to the Trello API.
      *
-     * @return {Promise<boolean>} true if the record is successfully deleted, false otherwise
+     * @return {Promise<boolean>} true if the record is successfully closed, false otherwise
      */
     public async delete(): Promise<boolean> {
         const id = this.id;
         const baseURL = List.baseURL;
-        const key = List.APIKey;
-        const token = List.APIToken;
-        const url = `${baseURL}/lists/${id}?key=${key}&token=${token}`;
+
+        const queryParams: string = new URLSearchParams({
+            key: List.APIKey,
+            token: List.APIToken,
+            closed: "true",
+        }).toString();
+
+        const url = `${baseURL}/${id}?${queryParams}`;
 
         try {
-            const response = await axios.delete(url);
+            const response = await axios.put(url);
             return true;
         } catch (error) {
-            console.error("Error deleting list:", error.message);
+            console.error("Error deleting list:", error);
             return false;
         }
     }

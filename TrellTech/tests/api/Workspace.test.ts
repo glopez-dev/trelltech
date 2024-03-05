@@ -9,6 +9,7 @@ describe('Workspace class', () => {
     it('should create a new workspace', async () => {
         workspace = await Workspace.create("My Workspace");
         expect(workspace.displayName).toBe("My Workspace");
+        expect(workspace.id).toBeDefined();
     });
 
     it('should update the workspace', async () => {
