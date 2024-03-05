@@ -34,8 +34,18 @@ export default function Navigator() {
         <NavigationContainer>
             <Stack.Navigator>
              
-                     
-                        <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen 
+  name="Trello" 
+  component={HomeScreen} 
+  options={{
+    headerStyle: { backgroundColor: '#2c333b' }, 
+    headerTintColor: 'white' ,
+    headerTitleStyle: { fontWeight: 'bold' },
+    headerTitleAlign: 'center',
+
+  }}
+/>
+
 
             </Stack.Navigator>
         </NavigationContainer>

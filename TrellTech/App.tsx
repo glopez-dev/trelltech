@@ -13,7 +13,7 @@ export default function App() {
   return (
     <GluestackUIProvider config={config}>
       <SessionProvider>
-       <HomeScreen />
+      <Navigator />
       </SessionProvider>
     </GluestackUIProvider>
   );
