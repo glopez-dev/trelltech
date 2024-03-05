@@ -128,5 +128,25 @@ export default class Workspace implements WorkspaceData {
         }
     }
 
+    /**
+     * Deletes the instance of the workspace it's called on.
+     *
+     * @return {Promise<boolean>} A boolean indicating the success of the deletion
+     */
+    public async delete(): Promise<boolean> {
+        const baseURL = Workspace.baseURL;
+        const key = Workspace.APIKey;
+        const token = Workspace.APIToken;
+        const url = `${baseURL}/${this.id}?key=${key}&token=${token}`
+
+        try {
+            const response = await axios.delete(url);
+            return response.status === 200 ? true : false;
+        } catch (error) {
+            console.error("Error deleting workspace:", error.message);
+            throw error;
+        }
+    }
+
 }
 

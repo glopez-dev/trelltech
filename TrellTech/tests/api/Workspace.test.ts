@@ -23,7 +23,7 @@ describe('Workspace class', () => {
     });
 
     it('should delete the workspace', async () => {
-        const deleted = await Workspace.delete(workspace.id);
+        const deleted = await workspace.delete();
         expect(deleted).toBe(true);
     });
 
