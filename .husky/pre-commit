@@ -1,1 +1,19 @@
-npm test
+#!/bin/bash
+
+# Load environment variables from .env file
+export $(cat .env) > /dev/null
+
+command="npm test"
+
+echo "Executing tests before pushing"
+
+$command
+
+result=$?
+
+if [ "$result" -ne 0 ]; then
+    echo "Failed execution of tests"
+    exit 1
+fi
+
+exit 0
