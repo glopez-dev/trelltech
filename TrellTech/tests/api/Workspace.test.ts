@@ -23,6 +23,11 @@ describe('Workspace class', () => {
         expect(retrievedWorkspace.displayName).toBe("My Updated Workspace");
     });
 
+    it('should get workspace members', async () => {
+        const members = await workspace.getMembers();
+        expect(members).toBeDefined();
+    });
+
     it('should delete the workspace', async () => {
         const deleted = await workspace.delete();
         expect(deleted).toBe(true);
