@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import Member, { MemberData } from "@src/api/Member";
 
-interface WorkspaceData {
+export interface WorkspaceData {
     /* Mandatory */
     id: string,
     displayName: string,
