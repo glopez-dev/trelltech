@@ -13,6 +13,7 @@ export default function HeaderRight() {
     const handleCloseModal = () => {
         setIsModalVisible(false);
     };
+    
 
     return (
         <>
@@ -21,10 +22,10 @@ export default function HeaderRight() {
                     size="sm"
                     variant="solid"
                     action="primary"
-                    isDisabled={false}
+                    disabled={isModalVisible}
                     isFocusVisible={false}
                     bg="#1c333b"
-                    opacity={setIsModalVisible ? -1.5 : 1}
+                    opacity={isModalVisible ? -1.5 : 1}
                     onPress={handleButtonClick}
                 >
                     <ButtonIcon as={AddIcon} size="xl" />
