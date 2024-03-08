@@ -5,13 +5,15 @@ import { config } from "@gluestack-ui/config" // Optional if you want to use def
 import { SessionProvider } from '@src/authentication/SessionProvider';
 // Navigation
 import Navigator from '@src/navigation/Navigator';
+import React from 'react';
+import HomeScreen from '@src/screens/HomeScreen';
 
 
 export default function App() {
   return (
     <GluestackUIProvider config={config}>
       <SessionProvider>
-        <Navigator />
+      <Navigator />
       </SessionProvider>
     </GluestackUIProvider>
   );

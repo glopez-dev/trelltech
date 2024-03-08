@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
-
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -11,31 +10,30 @@ import { View, Text } from '@gluestack-ui/themed';
  * @param {object} - An object that contains the `navigation` and `route` props.
  * @returns {object} - An object that contains the `Screen` options. 
  */
-export function homeScreenOptions({ navigation, route }): object {
+export function cardScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <Fontisto name="trello" size={22} color={color} />,
+        tabBarIcon: ({ color, size}) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { backgroundColor: '#2c333b' },
-        tabBarLabel: 'Tableaux',
+        tabBarLabel: 'Mes cartes',
         /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },
         headerTintColor: 'white',
         headerTitleStyle: { fontWeight: 'bold', fontSize: 25 },
         headerTitleAlign: 'center',
-        headerTitle: 'Trelltech',
+        headerTitle: 'Mes cartes',
         headerRight: () => <HeaderRight />,
     };
 }
 
 
-export function HomeScreen() {
+export function CardScreen() {
     return (
         /* Home screen content goes here */
         <View>
-            <Text>Home Screen</Text>
+            <Text>Card Screen</Text>
         </View>
     );
 }
-
