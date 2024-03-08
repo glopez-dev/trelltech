@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Fontisto } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HeaderRight';
-import { View, Text } from '@gluestack-ui/themed';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 
 /**
@@ -29,13 +29,82 @@ export function homeScreenOptions({ navigation, route }): object {
     };
 }
 
+export const HomeScreen = () => {
 
-export function HomeScreen() {
+    const data = [
+        { title: 'Fruits', data: ['Banane', 'Pomme', 'Orange', 'Fraise', 'Kiwi',] },
+        { title: 'Fleurs', data: ['Rose', 'Tulipe', 'Lavande', 'Lys', 'Marguerite'] },
+        { title: 'Légumes', data: ['Carotte', 'Tomate', 'Brocoli', 'Courgette', 'Poivron'] },
+    ];
+
     return (
-        /* Home screen content goes here */
-        <View>
-            <Text>Home Screen</Text>
-        </View>
-    );
-}
 
+        <FlatList
+            style={styles.container}
+            data={data}
+            ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
+            renderItem={({ item }) => (
+                <View>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <FlatList
+                        data={item.data}
+                        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+        />
+
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#000000',
+
+
+    },
+    item: {
+        padding: 15,
+        backgroundColor: '#1c1c1e',
+        color: 'white',
+        borderWidth: 1,
+        borderColor: '#2c333b',
+        display: 'flex',
+
+
+
+    },
+    title: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        padding: 10,
+        color: '#a0adbd',
+
+
+        marginTop: 10,
+
+
+
+    },
+    title1: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#a0adbd',
+
+
+    },
+    staticTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#a0adbd',
+
+        marginTop: 10,
+        padding: 5,
+
+    }
+
+
+});

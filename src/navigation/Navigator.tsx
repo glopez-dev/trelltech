@@ -1,8 +1,4 @@
 import * as React from 'react';
-/* Authentication */
-import Login from '@src/screens/LoginScreen';
-import { useSession } from '@src/authentication/SessionProvider';
-
 import TabNavigator from './TabNavigator';
 
 /**
@@ -10,7 +6,6 @@ import TabNavigator from './TabNavigator';
  */
 import { NavigationContainer } from '@react-navigation/native';
 
-import  StackNavigator from '@src/navigation/StackNavigator';
 
 export default function Navigator() {
 
