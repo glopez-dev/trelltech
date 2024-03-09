@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fontisto } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HeaderRight';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
@@ -14,12 +13,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 export function homeScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <Fontisto name="trello" size={22} color={color} />,
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
-        tabBarLabel: 'Tableaux',
-        /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },
         headerTintColor: 'white',
         headerTitleStyle: { fontWeight: 'bold', fontSize: 25 },
@@ -38,7 +31,6 @@ export const HomeScreen = () => {
     ];
 
     return (
-
         <FlatList
             style={styles.container}
             data={data}
@@ -55,7 +47,6 @@ export const HomeScreen = () => {
             )}
             keyExtractor={(item, index) => index.toString()}
         />
-
     );
 };
 
