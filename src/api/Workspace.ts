@@ -177,19 +177,18 @@ export default class Workspace implements WorkspaceData {
     }
 
 
-    async getBoards(): Promise<Board[]> {
+
+
+    static async getBoards(workspaceId: string): Promise<Board[]> {
         const baseURL = Workspace.baseURL;
         const key = Workspace.APIKey;
         const token = Workspace.APIToken;
-        const id = this.id;
-
-        const url = `${baseURL}/${id}/boards?key=${key}&token=${token}`;
+        const url = `${baseURL}/${workspaceId}/boards?key=${key}&token=${token}`;
 
         try {
             const response = await axios.get(url);
             const boardDataList: BoardData[] = response.data;
             return boardDataList.map((boardData: BoardData) => new Board(boardData));
-
         } catch (error) {
             console.error("Error fetching boards:", error.message);
             throw error;
@@ -198,11 +197,9 @@ export default class Workspace implements WorkspaceData {
 
     async addBoard(name: string): Promise<Board> {
         const board = await Board.create(name, this.id);
-        const boards = await this.getBoards();
+        const boards = await Workspace.getBoards(this.id); // Using static method
         boards.push(board);
         return board;
     }
-
-
 }
 

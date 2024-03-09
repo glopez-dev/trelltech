@@ -32,8 +32,8 @@ export function homeScreenOptions({ navigation, route }): object {
 }
 
 export const HomeScreen = () => {
-    const [data, setData] = React.useState([]);
-    const [idWorkspace, setIdWorkspace] = React.useState([]);
+    const [workspace, setWorkspace] = React.useState([]);
+    const [boards, setBoards] = React.useState([]);
 
 
     React.useEffect(() => {
@@ -41,22 +41,18 @@ export const HomeScreen = () => {
             try {
 
                 const resWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
-                setData(resWorkspace);
+                setWorkspace(resWorkspace);
                 console.log(resWorkspace);
 
-
                 const idWorkspaces = resWorkspace.map(workspace => workspace.id);
-                setIdWorkspace(idWorkspaces);
+
                 console.log(idWorkspaces);
 
-
-                const boards = await Promise.all(idWorkspaces.map(id => Workspace.getBoard(id)));
-                console.log(boards);
-
-
-
-
-
+                for (const workspace of resWorkspace) {
+                    const boards = await Workspace.getBoards(workspace.id);
+                    console.log(boards);
+                    setBoards(boards);
+                }
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -65,9 +61,8 @@ export const HomeScreen = () => {
 
         fetchData();
 
-        // Nettoyage de l'effet
         return () => {
-            // Code de nettoyage si nécessaire
+
         };
     }, []);
 
@@ -75,14 +70,14 @@ export const HomeScreen = () => {
 
         <FlatList
             style={styles.container}
-            data={data}
+            data={workspace}
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
             renderItem={({ item }) => (
                 <View>
                     <Text style={styles.title}>{item.displayName}</Text>
                     <FlatList
-                        data={item.data}
-                        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                        data={boards}
+                        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
