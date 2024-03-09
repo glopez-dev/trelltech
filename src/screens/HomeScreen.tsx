@@ -4,6 +4,7 @@ import HeaderRight from '@src/components/HeaderRight';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
+import Board from '@src/api/Board';
 
 
 /**
@@ -32,26 +33,32 @@ export function homeScreenOptions({ navigation, route }): object {
 }
 
 export const HomeScreen = () => {
-    const [workspace, setWorkspace] = React.useState([]);
-    const [boards, setBoards] = React.useState([]);
+    const [workspaces, setWorkspaces] = React.useState([]);
+    const [workspaceBoards, setWorkspaceBoards] = React.useState({});
+
+    const appendBoards = (workspace: Workspace, boardsList: Board[]) => {
+        setWorkspaceBoards((prevState) => ({
+            ...prevState,
+            [workspace.id]: [...(prevState[workspace.id] || []), ...boardsList],
+        }));
+    };
 
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
 
-                const resWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
-                setWorkspace(resWorkspace);
-                console.log(resWorkspace);
+                // On récupére tous les workspaces de l'utilisateur
+                const responseWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
+                // On stocke la lsite des workspaces dans le state
+                setWorkspaces(responseWorkspace);
+                // On affich les 
+                console.log(responseWorkspace);
 
-                const idWorkspaces = resWorkspace.map(workspace => workspace.id);
-
-                console.log(idWorkspaces);
-
-                for (const workspace of resWorkspace) {
+                for (const workspace of responseWorkspace) {
                     const boards = await Workspace.getBoards(workspace.id);
                     console.log(boards);
-                    setBoards(boards);
+                    appendBoards(workspace, boards);
                 }
 
             } catch (error) {
@@ -70,19 +77,22 @@ export const HomeScreen = () => {
 
         <FlatList
             style={styles.container}
-            data={workspace}
+            data={workspaces}
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
+            keyExtractor={(item, index) => index.toString()}
+            /* Item is a Workspace object */
             renderItem={({ item }) => (
                 <View>
                     <Text style={styles.title}>{item.displayName}</Text>
+
                     <FlatList
-                        data={boards}
+                        data={workspaceBoards[item.id]}
                         renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </View>
+
+                </View >
             )}
-            keyExtractor={(item, index) => index.toString()}
         />
 
     );
