@@ -4,14 +4,14 @@ import Member from '@src/api/Member';
 
 describe('Member class', () => {
 
-    it('should get member gaming geekou by ID', async () => {
+    it('should get member isaac meil by ID', async () => {
         const id = '622a3d0f72bc0865d9a6f349';
         const member = await Member.get(id);
         expect(member.id).toBe(id);
-        expect(member.fullName).toBe('gaming geekou');
+        expect(member.fullName).toBe('isaac meil');
     });
 
-    it('should get member gaming geekou workspaces', async () => {
+    it('should get member isaac meil workspaces', async () => {
         const id = '622a3d0f72bc0865d9a6f349';
         const workspaces = await Member.getWorkspaces(id);
         expect(workspaces).toBeDefined();

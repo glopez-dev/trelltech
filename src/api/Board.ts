@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import List from "@src/api/List";
 
-interface BoardData {
+export interface BoardData {
     /* Mandatory */
     id: string
     name: string
