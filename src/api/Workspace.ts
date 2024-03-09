@@ -175,5 +175,21 @@ export default class Workspace implements WorkspaceData {
         }
     }
 
+
+    static async getBoard(id: string): Promise<Workspace> {
+        const baseURL = Workspace.baseURL;
+        const key = Workspace.APIKey;
+        const token = Workspace.APIToken;
+        const url = `${baseURL}/${id}/boards?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get(url);
+            return new Workspace(response.data);
+        } catch (error) {
+            console.error("Error fetching boards:", error.message);
+            throw error;
+        }
+    }
+
 }
 
