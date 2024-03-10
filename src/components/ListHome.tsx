@@ -1,22 +1,33 @@
 
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
 import ButtonAdd from './Home/ButtonAdd';
 import ButtonDelete from './Home/ButtonDelete';
+import ModalDeleteWorkspace from './Home/ModalDeleteWorkspace';
 
 
 export const ListHome = () => {
     const [workspaces, setWorkspaces] = React.useState([]);
     const [workspaceBoards, setWorkspaceBoards] = React.useState({});
+    const [modalVisible, setModalVisible] = React.useState(false);
 
     const appendBoards = (workspace: Workspace, boardsList: Board[]) => {
         setWorkspaceBoards((prevState) => ({
             ...prevState,
             [workspace.id]: [...(prevState[workspace.id] || []), ...boardsList],
         }));
+    };
+
+    const ActivateModal = () => {
+        console.log('test');
+        setModalVisible(true);
+    }
+
+    const closeModal = () => {
+        setModalVisible(false);
     };
 
 
@@ -57,12 +68,15 @@ export const ListHome = () => {
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
             keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
-            /* Item is a Workspace object */
             renderItem={({ item }) => (
                 <View>
                     <View style={styles.boxTitle}>
-
-                        <Text style={styles.title}>{item.displayName}  </Text>
+                        {/* On affiche le nom de l'espace qui est un boutton pour ouvrir le modal pour supprimer le workspace */}
+                        <TouchableOpacity style={{ alignItems: 'center', padding: 10, marginTop: 10, }} onPress={ActivateModal}>
+                            <Text style={{ color: 'white', fontSize: 17 }}>{item.displayName}</Text>
+                        </TouchableOpacity>
+                        <ModalDeleteWorkspace visible={modalVisible} onClose={closeModal} workspaceId={item.id} />
+                        {/* boutton pour ajouter une liste */}
                         <ButtonAdd workspaceId={item.id} />
                     </View>
 
@@ -71,7 +85,6 @@ export const ListHome = () => {
                         renderItem={({ item }) =>
 
                             <View style={styles.boxItem}>
-
                                 <Text style={styles.item}>{item.name}   </Text>
                                 <ButtonDelete BoardId={item.id} />
                             </View>
