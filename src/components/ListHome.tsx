@@ -5,6 +5,7 @@ import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
 import ButtonAdd from './Home/ButtonAdd';
+import ButtonDelete from './Home/ButtonDelete';
 
 
 export const ListHome = () => {
@@ -55,6 +56,7 @@ export const ListHome = () => {
             data={workspaces}
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
             keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
             /* Item is a Workspace object */
             renderItem={({ item }) => (
                 <View>
@@ -66,8 +68,20 @@ export const ListHome = () => {
 
                     <FlatList
                         data={workspaceBoards[item.id]}
-                        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
+                        renderItem={({ item }) =>
+
+                            <View style={styles.boxItem}>
+
+                                <Text style={styles.item}>{item.name}   </Text>
+                                <ButtonDelete BoardId={item.id} />
+                            </View>
+
+                        }
+
+
                         keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
+
                     />
 
                 </View >
@@ -88,9 +102,9 @@ const styles = StyleSheet.create({
         padding: 15,
         backgroundColor: '#1c1c1e',
         color: 'white',
-        borderWidth: 1,
-        borderColor: '#2c333b',
-        display: 'flex',
+
+
+
 
 
 
@@ -113,6 +127,7 @@ const styles = StyleSheet.create({
         color: '#a0adbd',
 
 
+
     },
     staticTitle: {
         fontSize: 20,
@@ -127,7 +142,18 @@ const styles = StyleSheet.create({
     boxTitle: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+
+    boxItem: {
+        flexDirection: 'row',
+
+        justifyContent: 'space-between',
+        backgroundColor: '#1c1c1e',
+        borderWidth: 1,
+        borderColor: '#2c333b',
     }
+
+
 
 
 });

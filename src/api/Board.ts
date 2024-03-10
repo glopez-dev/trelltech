@@ -116,4 +116,18 @@ export default class Board implements BoardData {
             return false;
         }
     }
+    public static async delete(boardId: string): Promise<boolean> {
+        const baseURL = Board.baseURL;
+        const key = Board.APIKey;
+        const token = Board.APIToken;
+        const url = `${baseURL}boards/${boardId}?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.delete(url);
+            return true;
+        } catch (error) {
+            console.error("Error deleting board:", error.message);
+            return false;
+        }
+    }
 }
