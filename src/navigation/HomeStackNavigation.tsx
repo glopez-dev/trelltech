@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Fontisto } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen, homeScreenOptions } from '@src/screens/home/HomeScreen';
+import { BoardScreen, boardScreenOptions } from '@src/screens/home/BoardScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,8 +33,9 @@ export function homeScreenTabOptions(): object {
 export function HomeStackNavigation() {
     /* Define all the Screens related to the Home page here. */
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={homeScreenOptions} />
+        <Stack.Navigator initialRouteName='Main' >
+            <Stack.Screen name="Main" component={HomeScreen} options={homeScreenOptions} />
+            <Stack.Screen name="Board" component={BoardScreen} options={boardScreenOptions} />
         </Stack.Navigator>
     );
 }

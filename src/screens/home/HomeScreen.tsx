@@ -1,6 +1,7 @@
 import * as React from 'react';
 import HeaderRight from '@src/components/HeaderRight';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 /**
@@ -24,6 +25,8 @@ export function homeScreenOptions({ navigation, route }): object {
 
 export const HomeScreen = () => {
 
+    const navigation = useNavigation();
+
     const data = [
         { title: 'Fruits', data: ['Banane', 'Pomme', 'Orange', 'Fraise', 'Kiwi',] },
         { title: 'Fleurs', data: ['Rose', 'Tulipe', 'Lavande', 'Lys', 'Marguerite'] },
@@ -36,14 +39,14 @@ export const HomeScreen = () => {
             data={data}
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
             renderItem={({ item }) => (
-                <View>
+                <Pressable onPress={() => navigation.navigate("Board", { board: item })}>
                     <Text style={styles.title}>{item.title}</Text>
                     <FlatList
                         data={item.data}
                         renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </View>
+                </Pressable>
             )}
             keyExtractor={(item, index) => index.toString()}
         />
