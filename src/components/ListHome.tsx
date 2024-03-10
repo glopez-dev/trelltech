@@ -4,8 +4,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
-
-
+import ButtonAdd from './Home/ButtonAdd';
 
 
 export const ListHome = () => {
@@ -59,7 +58,11 @@ export const ListHome = () => {
             /* Item is a Workspace object */
             renderItem={({ item }) => (
                 <View>
-                    <Text style={styles.title}>{item.displayName}</Text>
+                    <View style={styles.boxTitle}>
+
+                        <Text style={styles.title}>{item.displayName}  </Text>
+                        <ButtonAdd workspaceId={item.id} />
+                    </View>
 
                     <FlatList
                         data={workspaceBoards[item.id]}
@@ -119,6 +122,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 5,
 
+    },
+
+    boxTitle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 
 
