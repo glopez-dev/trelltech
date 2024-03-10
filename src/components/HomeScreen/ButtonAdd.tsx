@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
-import ModalBoard from '@src/components/Home/ModalBoard';
+import ModalBoard from '@src/components/HomeScreen/ModalBoard';
 
 
 

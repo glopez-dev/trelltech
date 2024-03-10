@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import HeaderRight from '@src/components/Home/HeaderRight';
+import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
 
 /**

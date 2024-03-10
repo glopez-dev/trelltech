@@ -61,7 +61,7 @@ export const ListHome = () => {
 
     const navigate = useNavigation();
     const handlePress = (board: Board) => {
-        navigate.navigate('Board', { boardId: board.id });
+        navigate.navigate('BoardScreen', { boardId: board.id });
     }
 
     return (
