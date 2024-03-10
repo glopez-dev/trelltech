@@ -34,8 +34,8 @@ export function HomeStackNavigation() {
     /* Define all the Screens related to the Home page here. */
     return (
         <Stack.Navigator initialRouteName='Main' >
-            <Stack.Screen name="Main" component={HomeScreen} options={homeScreenOptions} />
-            <Stack.Screen name="Board" component={BoardScreen} options={boardScreenOptions} />
+            <Stack.Screen name="MainScreen" component={HomeScreen} options={homeScreenOptions} />
+            <Stack.Screen name="BoardScreen" component={BoardScreen} options={boardScreenOptions} />
         </Stack.Navigator>
     );
 }

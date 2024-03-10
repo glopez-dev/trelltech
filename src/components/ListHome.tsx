@@ -1,16 +1,20 @@
 
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
 import ButtonAdd from './Home/ButtonAdd';
+import { useNavigation } from '@react-navigation/native';
 
 
 export const ListHome = () => {
+    // Store all workspaces
     const [workspaces, setWorkspaces] = React.useState([]);
+    // Maps workspace id to the list of its boards
     const [workspaceBoards, setWorkspaceBoards] = React.useState({});
 
+    // Helper function
     const appendBoards = (workspace: Workspace, boardsList: Board[]) => {
         setWorkspaceBoards((prevState) => ({
             ...prevState,
@@ -18,38 +22,43 @@ export const ListHome = () => {
         }));
     };
 
+    const fetchData = async () => {
+        try {
+            // On récupére tous les workspaces de l'utilisateur
+            const responseWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
+            // On stocke la liste des workspaces dans le state
+            setWorkspaces(responseWorkspace);
+
+            // On initialise le dictionnaire workspaceBoards
+            for (const workspace of responseWorkspace) {
+                const boards = await workspace.getBoards();
+                appendBoards(workspace, boards);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-
-                // On récupére tous les workspaces de l'utilisateur
-                const responseWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
-                // On stocke la lsite des workspaces dans le state
-                setWorkspaces(responseWorkspace);
-                // On affich les 
-                console.log(responseWorkspace);
-
-                for (const workspace of responseWorkspace) {
-                    const boards = await workspace.getBoards();
-                    console.log(boards);
-                    appendBoards(workspace, boards);
-                }
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
-
-        return () => {
-
-        };
+        return () => { };
     }, []);
 
-    return (
+    // Custom hook to retrieve the navigation object
+    const navigation = useNavigation();
 
+    /**
+     * A function to handle press events on the list items.
+     *
+     * @param {Board} board - the board object
+     * @return {void} 
+     */
+    const handlePress = (board: Board) => {
+        navigation.navigate('BoardScreen', { board });
+    };
+
+
+    return (
         <FlatList
             style={styles.container}
             data={workspaces}
@@ -57,7 +66,7 @@ export const ListHome = () => {
             keyExtractor={(item, index) => index.toString()}
             /* Item is a Workspace object */
             renderItem={({ item }) => (
-                <View>
+                <Pressable onPress={() => handlePress(item)}>
                     <View style={styles.boxTitle}>
 
                         <Text style={styles.title}>{item.displayName}  </Text>
@@ -70,7 +79,7 @@ export const ListHome = () => {
                         keyExtractor={(item, index) => index.toString()}
                     />
 
-                </View >
+                </Pressable>
             )}
         />
 
