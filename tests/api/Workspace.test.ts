@@ -28,6 +28,13 @@ describe('Workspace class', () => {
         expect(members).toBeDefined();
     });
 
+    it('should get workspace boards', async () => {
+        await workspace.addBoard("My Board");
+        const boards = await workspace.getBoards();
+        expect(boards).toBeDefined();
+        expect(boards.length).toBeGreaterThan(0);
+    });
+
     it('should delete the workspace', async () => {
         const deleted = await workspace.delete();
         expect(deleted).toBe(true);

@@ -27,7 +27,7 @@ export default function BoardScreenHeader() {
                 style={{ paddingLeft: 15, paddingRight: 20, color: 'white' }}
                 onPress={() => { navigation.goBack() }}
             />
-            <VStack space={2} style={{ padding: 1, margin: 1 }}>
+            <VStack style={{ padding: 1, margin: 1 }}>
                 <Text style={{ fontSize: 18, color: 'white' }}>Board name</Text>
                 <Text style={{ fontSize: 14, color: 'white', opacity: 0.5 }}>Workspace name </Text>
             </VStack>

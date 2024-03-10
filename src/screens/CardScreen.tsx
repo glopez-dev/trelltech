@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
+import ButtonAddList from '@src/components/Board/ButtonAddList';
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -13,7 +14,7 @@ import { View, Text } from '@gluestack-ui/themed';
 export function cardScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
+        tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { backgroundColor: '#2c333b' },
@@ -31,9 +32,8 @@ export function cardScreenOptions({ navigation, route }): object {
 
 export function CardScreen() {
     return (
-        /* Home screen content goes here */
-        <View>
-            <Text>Card Screen</Text>
-        </View>
+
+        <ButtonAddList />
+
     );
 }

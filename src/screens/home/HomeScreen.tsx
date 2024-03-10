@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fontisto } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HeaderRight';
 import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -26,6 +27,9 @@ export function homeScreenOptions({ navigation, route }): object {
 export const HomeScreen = () => {
 
     const navigation = useNavigation();
+    const handlePress = (board) => {
+        navigation.navigate('Board', { board });
+    };
 
     const data = [
         { title: 'Fruits', data: ['Banane', 'Pomme', 'Orange', 'Fraise', 'Kiwi',] },
@@ -34,12 +38,13 @@ export const HomeScreen = () => {
     ];
 
     return (
+
         <FlatList
             style={styles.container}
             data={data}
             ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
             renderItem={({ item }) => (
-                <Pressable onPress={() => navigation.navigate("Board", { board: item })}>
+                <Pressable onPress={() => handlePress(item)}>
                     <Text style={styles.title}>{item.title}</Text>
                     <FlatList
                         data={item.data}
@@ -50,6 +55,7 @@ export const HomeScreen = () => {
             )}
             keyExtractor={(item, index) => index.toString()}
         />
+
     );
 };
 
