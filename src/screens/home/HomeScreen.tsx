@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Fontisto } from '@expo/vector-icons';
-import HeaderRight from '@src/components/HeaderRight';
 import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ListHome } from '@src/components/ListHome';
+import { ListHome } from '@src/components/HomeScreen/ListHome';
+import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 
 
 /**

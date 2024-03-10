@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
-import ButtonAdd from './Home/ButtonAdd';
+import ButtonAdd from '@src/components/HomeScreen/ButtonAdd';
 import { useNavigation } from '@react-navigation/native';
 
 

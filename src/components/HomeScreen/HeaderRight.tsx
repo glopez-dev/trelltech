@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
-import CustomModal from '@src/components/CustomModal';
+import CustomModal from '@src/components/HomeScreen/CustomModal';
 
 export default function HeaderRight() {
 

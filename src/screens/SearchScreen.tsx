@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
-import HeaderRight from '@src/components/HeaderRight';
+import HeaderRight from '@src/components/Home/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
 
 
@@ -14,7 +14,7 @@ import { View, Text } from '@gluestack-ui/themed';
 export function searchScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <FontAwesome5 name="search" size={20} color={color} />,
+        tabBarIcon: ({ color, size }) => <FontAwesome5 name="search" size={20} color={color} />,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { backgroundColor: '#2c333b' },

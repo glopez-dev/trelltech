@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text } from '@gluestack-ui/themed';
 import { StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
+import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
 
 /**
  * The function that manages the logic to configure the BoardScreen options.
@@ -13,13 +14,6 @@ import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 export function boardScreenOptions({ navigation, route }): object {
 
     return {
-        // headerStyle: { backgroundColor: '#00438f' },
-        // headerTintColor: 'white',
-        // headerTitleStyle: { fontWeight: 'bold', fontSize: 25 },
-        // headerTitleAlign: 'center',
-        // headerTitle: 'Trelltech',
-        // headerLeft: () => <Text>Test</Text>,
-        // headerRight: () => <Text>Test</Text>,
         header: () => <BoardScreenHeader />,
     };
 }
@@ -28,7 +22,7 @@ export function BoardScreen() {
     return (
         /* Home screen content goes here */
         <View style={styles.container}>
-            <Text style={styles.text}>Board Screen</Text>
+            <ButtonAddList />
         </View>
     );
 }

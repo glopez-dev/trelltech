@@ -31,14 +31,9 @@ const ButtonToInput: React.FC = () => {
     return (
         <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
             {!isInputVisible ? (
-
-
                 <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, width: '90%', alignItems: 'center', borderRadius: 10, }} onPress={toggleInput}>
                     <Text style={{ color: 'white', fontSize: 20 }}>Press Here</Text>
                 </TouchableOpacity>
-
-
-
             ) : (
                 <View style={{ width: '90%', backgroundColor: '#000000', padding: 10 }}>
                     <TextInput
@@ -57,7 +52,6 @@ const ButtonToInput: React.FC = () => {
                     </View>
                 </View>
             )}
-
         </View>
     );
 };

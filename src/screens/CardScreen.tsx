@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import HeaderRight from '@src/components/HeaderRight';
+import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
-import ButtonAddList from '@src/components/Board/ButtonAddList';
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -32,8 +31,6 @@ export function cardScreenOptions({ navigation, route }): object {
 
 export function CardScreen() {
     return (
-
-        <ButtonAddList />
-
+        <Text>Card Screen</Text>
     );
 }
