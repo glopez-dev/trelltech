@@ -31,7 +31,7 @@ export const ListHome = () => {
                 console.log(responseWorkspace);
 
                 for (const workspace of responseWorkspace) {
-                    const boards = await Workspace.getBoards(workspace.id);
+                    const boards = await workspace.getBoards();
                     console.log(boards);
                     appendBoards(workspace, boards);
                 }

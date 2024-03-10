@@ -179,7 +179,8 @@ export default class Workspace implements WorkspaceData {
 
 
 
-    static async getBoards(workspaceId: string): Promise<Board[]> {
+    async getBoards(): Promise<Board[]> {
+        const workspaceId = this.id;
         const baseURL = Workspace.baseURL;
         const key = Workspace.APIKey;
         const token = Workspace.APIToken;
@@ -197,7 +198,7 @@ export default class Workspace implements WorkspaceData {
 
     async addBoard(name: string): Promise<Board> {
         const board = await Board.create(name, this.id);
-        const boards = await Workspace.getBoards(this.id); // Using static method
+        const boards = await this.getBoards(); // Using static method
         boards.push(board);
         return board;
     }
