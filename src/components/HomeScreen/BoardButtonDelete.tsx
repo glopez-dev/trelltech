@@ -14,7 +14,7 @@ interface BoardButtonDeleteProps {
  */
 export default function BoardButtonDelete(props: BoardButtonDeleteProps): JSX.Element {
 
-    const handleDelete = () => Board.delete(props.boardId);
+    const handleDelete = async () => await Board.delete(props.boardId);
 
     return (
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>

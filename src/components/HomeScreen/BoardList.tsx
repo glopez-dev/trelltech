@@ -4,14 +4,20 @@ import Workspace from '@src/api/Workspace';
 import { FlatList } from '@gluestack-ui/themed';
 import BoardListHeader from './BoardListHeader';
 import BoardItem from './BoardItem';
+import { ListRenderItemInfo } from 'react-native';
 
 
-export default function BoardList({ workspace }: { workspace: Workspace }) {
+/**
+ * A list of boards for a workspace.
+ * @param workspace The workspace.
+ * @returns The component.
+ */
+export default function BoardList({ workspace }: { workspace: Workspace }): JSX.Element {
 
-    const [workspaceBoards, setWorkspaceBoards]: [Board[], React.Dispatch<React.SetStateAction<Board[]>>] = React.useState([]);
+    const [workspaceBoards, setWorkspaceBoards] = React.useState<Board[]>([]);
 
     React.useEffect(() => {
-        const initWorkspaceBoards = async () => {
+        const initWorkspaceBoards = async (): Promise<void> => {
             const boards = await workspace.getBoards();
             setWorkspaceBoards(boards);
         }
@@ -24,9 +30,9 @@ export default function BoardList({ workspace }: { workspace: Workspace }) {
         <FlatList
             data={workspaceBoards}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <BoardItem item={item as Board} />}
-            ListHeaderComponent={workspace => <BoardListHeader workspace={workspace} />}
+            keyExtractor={(item: Board, index: number) => index.toString()}
+            renderItem={({ item }: ListRenderItemInfo<Board>) => <BoardItem item={item} />}
+            ListHeaderComponent={() => <BoardListHeader workspace={workspace} />}
         />
     );
 

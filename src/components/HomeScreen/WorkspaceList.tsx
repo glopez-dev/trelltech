@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Pressable, ListRenderItemInfo } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ListRenderItemInfo } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import BoardList from '@src/components/HomeScreen/BoardList';
@@ -23,7 +23,7 @@ function WorkspaceListHeader(): JSX.Element {
     );
 }
 
-const fetchWorkspaces = async (memberId: string, setWorkspaces) => {
+export const fetchWorkspaces = async (memberId: string, setWorkspaces) => {
 
     if (!memberId) {
         console.error("WorkspaceList: fetchWorkspaces called with null/undefined memberId");
