@@ -7,6 +7,7 @@ import ButtonAddWorkspace from '@src/components/HomeScreen/ButtonAddWorkspace';
 import ButtonDeleteBoard from '@src/components/HomeScreen/ButtonDeleteBoard';
 import ModalDeleteWorkspace from '@src/components/HomeScreen/ModalDeleteWorkspace';
 import { useNavigation } from '@react-navigation/native';
+import ModalWorkspaceUpdate from './ModalWorkspaceUpdate';
 
 export const ListHome = () => {
     const [workspaces, setWorkspaces] = React.useState([]);
@@ -27,6 +28,21 @@ export const ListHome = () => {
 
     const closeModal = () => {
         setModalVisible(false);
+    };
+
+    const [showModal, setShowModal] = React.useState(false);
+    let pressTimer;
+
+    const handlePressIn = () => {
+        // Démarrer un délai de 1000ms (1 seconde) pour afficher la modal
+        pressTimer = setTimeout(() => {
+            setShowModal(true);
+        }, 1000);
+    };
+
+    const handlePressOut = () => {
+        // Annuler le délai si l'utilisateur relâche le bouton avant 1 seconde
+        clearTimeout(pressTimer);
     };
 
 
@@ -75,10 +91,13 @@ export const ListHome = () => {
                 <View>
                     <View style={styles.boxTitle}>
                         {/* On affiche le nom de l'espace qui est un boutton pour ouvrir le modal pour supprimer le workspace */}
-                        <TouchableOpacity style={{ alignItems: 'center', padding: 10, marginTop: 10, }} onPress={ActivateModal}>
+                        <TouchableOpacity style={{ alignItems: 'center', padding: 10, marginTop: 10, }} onPress={ActivateModal} onPressIn={handlePressIn}
+                            onPressOut={handlePressOut}
+                            activeOpacity={0.6}>
                             <Text style={{ color: 'white', fontSize: 17 }}>{item.displayName}</Text>
                         </TouchableOpacity>
                         <ModalDeleteWorkspace visible={modalVisible} onClose={closeModal} workspaceId={item.id} />
+                        <ModalWorkspaceUpdate visible={showModal} onClose={() => setShowModal(false)} workspaceId={item.id} name={item.displayName} />
 
                         {/* boutton pour ajouter une liste */}
                         <ButtonAddWorkspace workspaceId={item.id} />

@@ -5,8 +5,10 @@ import Workspace from '@src/api/Workspace';
 const ModalWorkspaceUpdate = ({ visible, onClose, workspaceId, name }) => {
     const [newName, setNewName] = useState(name);
 
-    const Rename = () => {
-        Workspace.update(workspaceId, newName); // Assuming update function takes newName
+    const Rename = async () => {
+        const workspace = await Workspace.get(workspaceId);
+        workspace.name = newName;
+        await workspace.update();
         onClose(); // Close modal after updating
     };
 
