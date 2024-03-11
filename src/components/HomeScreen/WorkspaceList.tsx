@@ -1,188 +1,90 @@
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity, Pressable, ListRenderItemInfo } from 'react-native';
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
-import Board from '@src/api/Board';
-import ButtonAddWorkspace from '@src/components/HomeScreen/ButtonAddWorkspace';
-import ButtonDeleteBoard from '@src/components/HomeScreen/ButtonDeleteBoard';
-import ModalDeleteWorkspace from '@src/components/HomeScreen/ModalDeleteWorkspace';
-import { useNavigation } from '@react-navigation/native';
-import ModalWorkspaceUpdate from './ModalWorkspaceUpdate';
-
-export const ListHome = () => {
-    const [workspaces, setWorkspaces] = React.useState([]);
-    const [workspaceBoards, setWorkspaceBoards] = React.useState({});
-    const [modalVisible, setModalVisible] = React.useState(false);
-
-    const appendBoards = (workspace: Workspace, boardsList: Board[]) => {
-        setWorkspaceBoards((prevState) => ({
-            ...prevState,
-            [workspace.id]: [...(prevState[workspace.id] || []), ...boardsList],
-        }));
-    };
-
-    const ActivateModal = () => {
-        console.log('test');
-        setModalVisible(true);
-    }
-
-    const closeModal = () => {
-        setModalVisible(false);
-    };
-
-    const [showModal, setShowModal] = React.useState(false);
-    let pressTimer;
-
-    const handlePressIn = () => {
-        // Démarrer un délai de 1000ms (1 seconde) pour afficher la modal
-        pressTimer = setTimeout(() => {
-            setShowModal(true);
-        }, 1000);
-    };
-
-    const handlePressOut = () => {
-        // Annuler le délai si l'utilisateur relâche le bouton avant 1 seconde
-        clearTimeout(pressTimer);
-    };
+import BoardList from '@src/components/HomeScreen/BoardList';
 
 
-    React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-
-                // On récupére tous les workspaces de l'utilisateur
-                const responseWorkspace = await Member.getWorkspaces('622a3d0f72bc0865d9a6f349');
-                // On stocke la lsite des workspaces dans le state
-                setWorkspaces(responseWorkspace);
-                // On affich les 
-                console.log(responseWorkspace);
-
-                for (const workspace of responseWorkspace) {
-                    const boards = await workspace.getBoards();
-                    console.log(boards);
-                    appendBoards(workspace, boards);
-                }
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-
-        return () => {
-
-        };
-    }, []);
-
-    const navigate = useNavigation();
-    const handlePress = (board: Board) => {
-        navigate.navigate('BoardScreen', { boardId: board.id });
-    }
-
-    return (
-        <FlatList
-            style={styles.container}
-            data={workspaces}
-            ListHeaderComponent={<Text style={styles.staticTitle}>Vos espaces de travail</Text>}
-            keyExtractor={(item, index) => index.toString()}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-                <View>
-                    <View style={styles.boxTitle}>
-                        {/* On affiche le nom de l'espace qui est un boutton pour ouvrir le modal pour supprimer le workspace */}
-                        <TouchableOpacity style={{ alignItems: 'center', padding: 10, marginTop: 10, }} onPress={ActivateModal} onPressIn={handlePressIn}
-                            onPressOut={handlePressOut}
-                            activeOpacity={0.6}>
-                            <Text style={{ color: 'white', fontSize: 17 }}>{item.displayName}</Text>
-                        </TouchableOpacity>
-                        <ModalDeleteWorkspace visible={modalVisible} onClose={closeModal} workspaceId={item.id} />
-                        <ModalWorkspaceUpdate visible={showModal} onClose={() => setShowModal(false)} workspaceId={item.id} name={item.displayName} />
-
-                        {/* boutton pour ajouter une liste */}
-                        <ButtonAddWorkspace workspaceId={item.id} />
-                    </View>
-                    <FlatList
-                        data={workspaceBoards[item.id]}
-                        keyExtractor={(item, index) => index.toString()}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) =>
-                            <Pressable style={styles.boxItem} onPress={() => handlePress(item)}>
-                                <Text style={styles.item}>{item.name}</Text>
-                                <ButtonDeleteBoard BoardId={item.id} />
-                            </Pressable>
-                        }
-                    />
-                </View >
-            )}
-        />
-    );
-};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000000',
+    container: { flex: 1, backgroundColor: '#000000' },
+    staticTitle: { fontSize: 20, fontWeight: 'bold', color: '#a0adbd', marginTop: 10, padding: 5 },
+});
 
+/**
+ * The header component for the workspace list.
+ * @returns {JSX.Element} The header component.
+ */
+function WorkspaceListHeader(): JSX.Element {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.staticTitle}>Vos espaces de travail</Text>
+        </View>
+    );
+}
 
-    },
-    item: {
-        padding: 15,
-        backgroundColor: '#1c1c1e',
-        color: 'white',
+const fetchWorkspaces = async (memberId: string, setWorkspaces) => {
 
+    if (!memberId) {
+        console.error("WorkspaceList: fetchWorkspaces called with null/undefined memberId");
+        setWorkspaces(null);
+        return;
+    }
 
+    let workspaces: Workspace[];
 
-
-
-
-    },
-    title: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        padding: 10,
-        color: '#a0adbd',
-
-
-        marginTop: 10,
-
-
-
-    },
-    title1: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#a0adbd',
-
-
-
-    },
-    staticTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#a0adbd',
-
-        marginTop: 10,
-        padding: 5,
-
-    },
-
-    boxTitle: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-
-    boxItem: {
-        flexDirection: 'row',
-
-        justifyContent: 'space-between',
-        backgroundColor: '#1c1c1e',
-        borderWidth: 1,
-        borderColor: '#2c333b',
+    try {
+        workspaces = await Member.getWorkspaces(memberId);
+        console.log(workspaces)
+        setWorkspaces(workspaces)
+    } catch (error) {
+        console.error("Error fetching member workspaces:", error.message);
+        setWorkspaces(null);
     }
 
 
+}
 
 
-});
+type WorkspaceListProps = {
+    memberId: string;
+};
+
+/**
+ * A list of workspaces for a member.
+ * @param memberId The member's ID.
+ * @returns The component.
+ */
+export default function WorkspaceList(props: WorkspaceListProps): JSX.Element {
+
+    const [workspaces, setWorkspaces] = React.useState<Workspace[] | null>(null);
+
+    React.useEffect(() => {
+
+        fetchWorkspaces(props.memberId, setWorkspaces);
+
+    }, [props.memberId, setWorkspaces]);
+
+    if (!workspaces) {
+        return <Text>Loading...</Text>;
+    }
+
+    try {
+        return (
+            <FlatList
+                data={workspaces}
+                style={styles.container}
+                keyExtractor={(item: Workspace) => item.id}
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={() => <WorkspaceListHeader />}
+                renderItem={({ item }: ListRenderItemInfo<Workspace>) => <BoardList workspace={item} />}
+            />
+        );
+
+    } catch (error) {
+        console.log("Error rendering Workspace list", error);
+    }
+};
+
+
 

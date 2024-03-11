@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import ModalWorkspaceUpdate from './ModalWorkspaceUpdate';
+import WorkspaceModalUpdate from './WorkspaceModalUpdate';
 
-const ButtonUpdate = () => {
+export default function WorkspaceButtonUpdate({ workspace }): JSX.Element {
     const [showModal, setShowModal] = useState(false);
     let pressTimer;
 
@@ -29,7 +29,7 @@ const ButtonUpdate = () => {
                     <Text style={styles.buttonText}>Appuyez Longuement</Text>
                 </View>
             </TouchableOpacity>
-            <ModalWorkspaceUpdate visible={showModal} onClose={() => setShowModal(false)} />
+            <WorkspaceModalUpdate visible={showModal} onClose={() => setShowModal(false)} workspace={workspace} />
         </View>
     );
 };
@@ -47,4 +47,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ButtonUpdate;

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import Workspace from '@src/api/Workspace';
 
-const ModalDeleteWorkspace = ({ visible, onClose, workspaceId }) => {
+const WorkspaceModalDelete = ({ visible, onClose, workspaceId }) => {
 
     const deleteWorkspace = () => {
         Workspace.delete(workspaceId);
@@ -31,4 +31,4 @@ const ModalDeleteWorkspace = ({ visible, onClose, workspaceId }) => {
     );
 };
 
-export default ModalDeleteWorkspace;
+export default WorkspaceModalDelete;

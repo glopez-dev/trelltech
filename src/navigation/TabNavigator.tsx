@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, homeScreenOptions } from '@src/screens/home/HomeScreen';
 import { CardScreen, cardScreenOptions } from '@src/screens/CardScreen';
 import { SearchScreen, searchScreenOptions } from '@src/screens/SearchScreen';
 import { NotificationScreen, notificationScreenOptions } from '@src/screens/NotificationScreen';

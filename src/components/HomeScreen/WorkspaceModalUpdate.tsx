@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import Workspace from '@src/api/Workspace';
 
-const ModalWorkspaceUpdate = ({ visible, onClose, workspaceId, name }) => {
-    const [newName, setNewName] = useState(name);
+export default function WorkspaceModalUpdate({ visible, onClose, workspace }): JSX.Element {
+    const [newName, setNewName] = useState(workspace.displayName);
 
-    const Rename = async () => {
+    const Rename = async (workspaceId) => {
         const workspace = await Workspace.get(workspaceId);
         workspace.displayName = newName;
         await workspace.update();
@@ -26,11 +26,11 @@ const ModalWorkspaceUpdate = ({ visible, onClose, workspaceId, name }) => {
                     <Text>Changer le nom du Workspace</Text>
                     <TextInput
                         style={{ borderWidth: 1, borderColor: 'gray', padding: 5 }}
-                        placeholder={name}
+                        placeholder={workspace.displayName}
                         value={newName}
                         onChangeText={text => setNewName(text)}
                     />
-                    <TouchableOpacity onPress={Rename} style={{ backgroundColor: '#a4262a', padding: 10, alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => Rename(workspace.id)} style={{ backgroundColor: '#a4262a', padding: 10, alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontSize: 20 }}>Rename</Text>
                     </TouchableOpacity>
                 </View>
@@ -39,4 +39,3 @@ const ModalWorkspaceUpdate = ({ visible, onClose, workspaceId, name }) => {
     );
 };
 
-export default ModalWorkspaceUpdate;

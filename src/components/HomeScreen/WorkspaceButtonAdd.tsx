@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
-import ModalCreateBoard from '@src/components/HomeScreen/ModalCreateBoard';
+import BoardModalCreate from './BoardModalCreate';
 
 
-
-const ButtonAddWorkspace = ({ workspaceId }) => {
+export const WorkspaceButtonAdd = ({ workspaceId }) => {
 
     const [isModalVisible, setIsModalVisible] = React.useState(false);
 
@@ -33,9 +32,7 @@ const ButtonAddWorkspace = ({ workspaceId }) => {
                     <ButtonIcon as={AddIcon} size="xl" />
                 </Button>
             </View >
-            <ModalCreateBoard isVisible={isModalVisible} onClose={handleCloseModal} workspaceId={workspaceId} />
+            <BoardModalCreate isVisible={isModalVisible} onClose={handleCloseModal} workspaceId={workspaceId} />
         </>
     );
 };
-
-export default ButtonAddWorkspace;
