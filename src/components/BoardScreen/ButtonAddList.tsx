@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import List from '@src/api/List';
 
-const ButtonToInput: React.FC = () => {
+const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
     const [isInputVisible, setInputVisible] = useState<boolean>(false);
     const [name, setname] = useState<string>('');
 
@@ -20,10 +20,10 @@ const ButtonToInput: React.FC = () => {
     };
 
     const handleAdd = () => {
-        List.create(name, '622a3d0f72bc0865d9a6f349');
+        List.create(name, boardId);
 
 
-        console.log("Texte ajouté :", name);
+        console.log("Texte ajouté :", name + " dans la liste d'id : " + boardId);
         setInputVisible(false);
         setname('');
     };
@@ -31,9 +31,11 @@ const ButtonToInput: React.FC = () => {
     return (
         <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
             {!isInputVisible ? (
-                <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, width: '90%', alignItems: 'center', borderRadius: 10, }} onPress={toggleInput}>
-                    <Text style={{ color: 'white', fontSize: 20 }}>Press Here</Text>
-                </TouchableOpacity>
+                <View style={{ width: '90%', backgroundColor: '#ffffff', }}>
+                    <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, alignItems: 'center', borderRadius: 0, }} onPress={toggleInput}>
+                        <Text style={{ color: 'white', fontSize: 20 }}>Press Here</Text>
+                    </TouchableOpacity>
+                </View>
             ) : (
                 <View style={{ width: '90%', backgroundColor: '#000000', padding: 10 }}>
                     <TextInput
@@ -51,9 +53,10 @@ const ButtonToInput: React.FC = () => {
                         <Button title="Ajouter" onPress={handleAdd} />
                     </View>
                 </View>
-            )}
-        </View>
+            )
+            }
+        </View >
     );
 };
 
-export default ButtonToInput;
+export default ButtonAddList;

@@ -1,38 +1,27 @@
-import * as React from 'react';
-import { View, Text } from '@gluestack-ui/themed';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
 import { useRoute } from '@react-navigation/native';
 
-/**
- * The function that manages the logic to configure the BoardScreen options.
- * Is passed to the `Tab.Screen` component that renders the `BoardScreen`.
- *
- * @param {object} - An object that contains the `navigation` and `route` props.
- * @returns {object} - An object that contains the `Screen` options. 
- */
-export function boardScreenOptions({ navigation, route }): object {
-    console.log("boardScreenOptions route", route);
-    const { params } = route
-    console.log("boardScreenOptions params", params);
+// Define the type of route.params
+interface RouteParams {
+    boardId: string; // Assuming boardId is of type string
+}
 
+export function boardScreenOptions({ route }) {
     return {
-        header: (params) => <BoardScreenHeader routeParams={params} />,
+        header: () => <BoardScreenHeader routeParams={route.params} />,
     };
 }
 
-
 export function BoardScreen() {
-
     const route = useRoute();
-    const { boardId } = route.params;
-
+    const { boardId }: RouteParams = route.params; // Specify the type of route.params
 
     return (
-        /* Home screen content goes here */
         <View style={styles.container}>
-            <ButtonAddList />
+            <ButtonAddList boardId={boardId} />
         </View>
     );
 }
@@ -44,15 +33,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
-        color: 'white',
-    },
 });
-
-const mockLists = [
-    { id: '1', name: 'To Do' },
-    { id: '2', name: 'In Progress' },
-    { id: '3', name: 'Done' },
-]
-
-
