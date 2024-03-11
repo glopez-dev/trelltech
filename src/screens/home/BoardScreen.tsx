@@ -3,6 +3,7 @@ import { View, Text } from '@gluestack-ui/themed';
 import { StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
+import { useRoute } from '@react-navigation/native';
 
 /**
  * The function that manages the logic to configure the BoardScreen options.
@@ -12,13 +13,22 @@ import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
  * @returns {object} - An object that contains the `Screen` options. 
  */
 export function boardScreenOptions({ navigation, route }): object {
+    console.log("boardScreenOptions route", route);
+    const { params } = route
+    console.log("boardScreenOptions params", params);
 
     return {
-        header: () => <BoardScreenHeader />,
+        header: (params) => <BoardScreenHeader routeParams={params} />,
     };
 }
 
+
 export function BoardScreen() {
+
+    const route = useRoute();
+    const { boardId } = route.params;
+
+
     return (
         /* Home screen content goes here */
         <View style={styles.container}>
