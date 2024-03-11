@@ -4,32 +4,30 @@ import List from '@src/api/List';
 
 const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
     const [isInputVisible, setInputVisible] = useState<boolean>(false);
-    const [name, setname] = useState<string>('');
+    const [name, setName] = useState<string>('');
 
     const toggleInput = () => {
         setInputVisible(!isInputVisible);
     };
 
     const handleChangeText = (inputText: string) => {
-        setname(inputText);
+        setName(inputText);
     };
 
     const handleCancel = () => {
         setInputVisible(false);
-        setname('');
+        setName('');
     };
 
     const handleAdd = () => {
         List.create(name, boardId);
-
-
         console.log("Texte ajouté :", name + " dans la liste d'id : " + boardId);
         setInputVisible(false);
-        setname('');
+        setName('');
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
+        <View style={{ justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
             {!isInputVisible ? (
                 <View style={{ width: '90%', backgroundColor: '#ffffff', }}>
                     <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, alignItems: 'center', borderRadius: 0, }} onPress={toggleInput}>
@@ -53,9 +51,8 @@ const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
                         <Button title="Ajouter" onPress={handleAdd} />
                     </View>
                 </View>
-            )
-            }
-        </View >
+            )}
+        </View>
     );
 };
 

@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
 import { useRoute } from '@react-navigation/native';
+import ListBoard from '@src/components/BoardScreen/ListBoard';
 
 // Define the type of route.params
 interface RouteParams {
@@ -21,8 +22,11 @@ export function BoardScreen() {
 
     return (
         <View style={styles.container}>
-            <ButtonAddList boardId={boardId} />
-        </View>
+            {/* <ButtonAddList boardId={boardId} /> */}
+
+            <ListBoard boardId={boardId} />
+
+        </View >
     );
 }
 
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0260cc',
-        alignItems: 'center',
-        justifyContent: 'center',
+        gap: 80
+
     },
 });

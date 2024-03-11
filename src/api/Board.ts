@@ -18,6 +18,7 @@ export default class Board implements BoardData {
     private static APIToken: string = process.env.EXPO_PUBLIC_API_TOKEN;
     private static baseURL: string = "https://api.trello.com/1/";
 
+
     /* Mandatory */
     id: string
     name: string
@@ -99,6 +100,23 @@ export default class Board implements BoardData {
         } catch (error) {
             console.error("Error getting board:", error.message);
             return null;
+        }
+    }
+
+
+    public static async getLists(id: string): Promise<List[]> {
+        const baseURL = Board.baseURL;
+        const key = Board.APIKey;
+        const token = Board.APIToken;
+
+        const url = `${baseURL}boards/${id}/lists?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get<List[]>(url);
+            return response.data;
+        } catch (error) {
+            console.error("Error getting lists:", error.message);
+            return [];
         }
     }
 
