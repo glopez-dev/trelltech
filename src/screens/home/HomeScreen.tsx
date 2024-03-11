@@ -24,7 +24,6 @@ export function homeScreenOptions({ navigation, route }): object {
 
 export const HomeScreen = () => {
 
-
     return (
         <ListHome />
     );

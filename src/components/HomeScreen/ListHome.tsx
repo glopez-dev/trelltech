@@ -75,9 +75,11 @@ export const ListHome = () => {
         };
     }, []);
 
-    const navigate = useNavigation();
+    const navigation = useNavigation();
+
     const handlePress = (board: Board) => {
-        navigate.navigate('BoardScreen', { boardId: board.id });
+        console.log(board);
+        navigation.navigate('BoardScreen', { boardId: board.id });
     }
 
     return (
@@ -102,6 +104,7 @@ export const ListHome = () => {
                         {/* boutton pour ajouter une liste */}
                         <ButtonAddWorkspace workspaceId={item.id} />
                     </View>
+
                     <FlatList
                         data={workspaceBoards[item.id]}
                         keyExtractor={(item, index) => index.toString()}
@@ -113,6 +116,7 @@ export const ListHome = () => {
                             </Pressable>
                         }
                     />
+
                 </View >
             )}
         />
