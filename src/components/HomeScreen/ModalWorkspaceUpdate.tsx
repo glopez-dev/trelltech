@@ -7,7 +7,7 @@ const ModalWorkspaceUpdate = ({ visible, onClose, workspaceId, name }) => {
 
     const Rename = async () => {
         const workspace = await Workspace.get(workspaceId);
-        workspace.name = newName;
+        workspace.displayName = newName;
         await workspace.update();
         onClose(); // Close modal after updating
     };
