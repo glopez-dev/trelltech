@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
-import CustomModal from '@src/components/HomeScreen/CustomModal';
+import ModalWorkspaceAdd from '@src/components/HomeScreen/ModalWorkspaceAdd';
 
 export default function HeaderRight() {
 
@@ -31,7 +31,7 @@ export default function HeaderRight() {
                     <ButtonIcon as={AddIcon} size="xl" />
                 </Button>
             </View>
-            <CustomModal isVisible={isModalVisible} onClose={handleCloseModal} />
+            <ModalWorkspaceAdd isVisible={isModalVisible} onClose={handleCloseModal} />
         </>
     )
 }

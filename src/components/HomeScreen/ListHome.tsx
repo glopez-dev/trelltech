@@ -3,8 +3,8 @@ import { FlatList, StyleSheet, Text, View, TouchableOpacity, Pressable } from 'r
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
-import ButtonAdd from '@src/components/HomeScreen/ButtonAdd';
-import ButtonDelete from '@src/components/HomeScreen/ButtonDelete';
+import ButtonAddWorkspace from '@src/components/HomeScreen/ButtonAddWorkspace';
+import ButtonDeleteBoard from '@src/components/HomeScreen/ButtonDeleteBoard';
 import ModalDeleteWorkspace from '@src/components/HomeScreen/ModalDeleteWorkspace';
 import { useNavigation } from '@react-navigation/native';
 
@@ -79,8 +79,9 @@ export const ListHome = () => {
                             <Text style={{ color: 'white', fontSize: 17 }}>{item.displayName}</Text>
                         </TouchableOpacity>
                         <ModalDeleteWorkspace visible={modalVisible} onClose={closeModal} workspaceId={item.id} />
+
                         {/* boutton pour ajouter une liste */}
-                        <ButtonAdd workspaceId={item.id} />
+                        <ButtonAddWorkspace workspaceId={item.id} />
                     </View>
                     <FlatList
                         data={workspaceBoards[item.id]}
@@ -89,7 +90,7 @@ export const ListHome = () => {
                         renderItem={({ item }) =>
                             <Pressable style={styles.boxItem} onPress={() => handlePress(item)}>
                                 <Text style={styles.item}>{item.name}</Text>
-                                <ButtonDelete BoardId={item.id} />
+                                <ButtonDeleteBoard BoardId={item.id} />
                             </Pressable>
                         }
                     />

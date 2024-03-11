@@ -2,11 +2,11 @@ import * as React from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import Board from '@src/api/Board';
 
-interface ButtonDeleteProps {
+interface ButtonDeleteBoardProps {
     BoardId: string;
 }
 
-const ButtonDelete: React.FC<ButtonDeleteProps> = ({ BoardId }) => {
+const ButtonDeleteBoard: React.FC<ButtonDeleteBoardProps> = ({ BoardId }) => {
     const deleted = () => {
         Board.delete(BoardId);
     };
@@ -20,4 +20,4 @@ const ButtonDelete: React.FC<ButtonDeleteProps> = ({ BoardId }) => {
     );
 };
 
-export default ButtonDelete;
+export default ButtonDeleteBoard;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
+import ButtonUpdate from '@src/components/HomeScreen/ButtonUpdate';
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -31,6 +32,6 @@ export function cardScreenOptions({ navigation, route }): object {
 
 export function CardScreen() {
     return (
-        <Text>Card Screen</Text>
+        <ButtonUpdate />
     );
 }

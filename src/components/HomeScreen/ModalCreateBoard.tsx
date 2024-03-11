@@ -9,7 +9,7 @@ interface Props {
     workspaceId: string;
 }
 
-const ModalBoard: React.FC<Props> = ({ isVisible, onClose, workspaceId }) => {
+const ModalCreateBoard: React.FC<Props> = ({ isVisible, onClose, workspaceId }) => {
     const [name, setName] = useState('');
 
     const handleNameChange = (value: string) => {
@@ -20,6 +20,7 @@ const ModalBoard: React.FC<Props> = ({ isVisible, onClose, workspaceId }) => {
         // Utilisez l'identifiant du workspace lors de la création du tableau
         Board.create(name, workspaceId);
         console.log(name, workspaceId);
+        setName('');
     };
 
     return (
@@ -47,4 +48,4 @@ const ModalBoard: React.FC<Props> = ({ isVisible, onClose, workspaceId }) => {
     );
 };
 
-export default ModalBoard;
+export default ModalCreateBoard;

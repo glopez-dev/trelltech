@@ -7,7 +7,7 @@ interface Props {
     onClose: () => void;
 }
 
-const CustomModal: React.FC<Props> = ({ isVisible, onClose }) => {
+const ModalAdd: React.FC<Props> = ({ isVisible, onClose }) => {
     const [name, setName] = useState('');
 
     const handleNameChange = (value: string) => {
@@ -16,6 +16,7 @@ const CustomModal: React.FC<Props> = ({ isVisible, onClose }) => {
 
     const add = () => {
         Workspace.create(name);
+        setName('');
     };
 
     return (
@@ -23,7 +24,7 @@ const CustomModal: React.FC<Props> = ({ isVisible, onClose }) => {
             animationType="slide"
             transparent={true}
             visible={isVisible}
-            onRequestClose={onClose}
+
         >
             <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                 <View style={{ backgroundColor: 'white', height: '89%' }}>
@@ -43,4 +44,4 @@ const CustomModal: React.FC<Props> = ({ isVisible, onClose }) => {
     );
 };
 
-export default CustomModal;
+export default ModalAdd;
