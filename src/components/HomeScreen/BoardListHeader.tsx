@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Workspace from '@src/api/Workspace';
-
 import WorkspaceModalDelete from './WorkspaceModalDelete';
 import WorkspaceModalUpdate from './WorkspaceModalUpdate';
 import { WorkspaceButtonAdd } from './WorkspaceButtonAdd';
@@ -10,6 +9,7 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
 
 
     const [modalVisible, setModalVisible] = React.useState(false);
+
 
     const ActivateModal = () => {
         console.log('test');
@@ -39,7 +39,6 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
         <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
 
-
                 <TouchableOpacity
                     style={{ alignItems: 'center', padding: 9, marginTop: 10, }} onPress={ActivateModal} onPressIn={handlePressIn}
                     onPressOut={handlePressOut}
@@ -48,7 +47,7 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
                     <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>{workspace.displayName}</Text>
                 </TouchableOpacity>
 
-                <WorkspaceModalDelete visible={modalVisible} onClose={closeModal} workspaceId={workspace.id} />
+                <WorkspaceModalDelete visible={modalVisible} onClose={closeModal} workspace={workspace} />
                 <WorkspaceModalUpdate visible={showModal} onClose={() => setShowModal(false)} workspace={workspace} />
 
                 <WorkspaceButtonAdd workspaceId={workspace.id} />

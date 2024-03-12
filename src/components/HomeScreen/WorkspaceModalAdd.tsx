@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Modal, View, Button, Text, TextInput } from 'react-native';
-import Workspace from '@src/api/Workspace';
+import { useAppContext } from '@src/context/AppContextProvider';
 
 interface WorkspaceModalAddProps {
     isVisible: boolean;
@@ -8,15 +8,23 @@ interface WorkspaceModalAddProps {
 }
 
 export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.Element {
-    const [name, setName] = useState('');
 
-    const handleNameChange = (value: string) => {
+    const [name, setName] = React.useState('');
+    const appContext = useAppContext();
+
+
+    const handleNameChange = (value: string): void => {
         setName(value);
     };
 
-    const add = () => {
-        Workspace.create(name);
-        setName('');
+    const add = async () => {
+        const success = await appContext.addWorkspace(name);
+
+        if (success) {
+            appContext.triggerReload();
+            setName('');
+            props.onClose();
+        }
     };
 
     return (

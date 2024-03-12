@@ -3,8 +3,7 @@ import { FlatList, StyleSheet, Text, View, ListRenderItemInfo } from 'react-nati
 import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import BoardList from '@src/components/HomeScreen/BoardList';
-
-
+import { useAppContext } from '@src/context/AppContextProvider';
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#000000' },
@@ -35,13 +34,12 @@ export const fetchWorkspaces = async (memberId: string, setWorkspaces) => {
 
     try {
         workspaces = await Member.getWorkspaces(memberId);
-        console.log(workspaces)
         setWorkspaces(workspaces)
+        console.log("Fetched member workspaces:", workspaces);
     } catch (error) {
         console.error("Error fetching member workspaces:", error.message);
         setWorkspaces(null);
     }
-
 
 }
 
@@ -57,34 +55,36 @@ type WorkspaceListProps = {
  */
 export default function WorkspaceList(props: WorkspaceListProps): JSX.Element {
 
-    const [workspaces, setWorkspaces] = React.useState<Workspace[] | null>(null);
+    const appContext = useAppContext();
 
     React.useEffect(() => {
+        fetchWorkspaces(props.memberId, appContext.setWorkspaces);
 
-        fetchWorkspaces(props.memberId, setWorkspaces);
+    }, [props.memberId, appContext.reload]);
 
-    }, [props.memberId, setWorkspaces]);
-
-    if (!workspaces) {
+    if (!appContext.workspaces) {
         return <Text>Loading...</Text>;
     }
 
     try {
         return (
             <FlatList
-                data={workspaces}
+                data={appContext.workspaces}
                 style={styles.container}
                 keyExtractor={(item: Workspace) => item.id}
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={() => <WorkspaceListHeader />}
                 renderItem={({ item }: ListRenderItemInfo<Workspace>) => <BoardList workspace={item} />}
             />
-        );
+        )
 
     } catch (error) {
         console.log("Error rendering Workspace list", error);
     }
+
 };
+
+
 
 
 

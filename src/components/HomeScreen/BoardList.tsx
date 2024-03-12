@@ -9,22 +9,24 @@ import { ListRenderItemInfo } from 'react-native';
 
 /**
  * A list of boards for a workspace.
- * @param workspace The workspace.
+ * @param props The component properties.
+ * @param props.workspace The workspace.
+ * @param props.setWorkspace The function to update the workspace.
  * @returns The component.
  */
-export default function BoardList({ workspace }: { workspace: Workspace }): JSX.Element {
+export default function BoardList(props: { workspace: Workspace }): JSX.Element {
 
     const [workspaceBoards, setWorkspaceBoards] = React.useState<Board[]>([]);
 
     React.useEffect(() => {
         const initWorkspaceBoards = async (): Promise<void> => {
-            const boards = await workspace.getBoards();
+            const boards = await props.workspace.getBoards();
             setWorkspaceBoards(boards);
         }
 
         initWorkspaceBoards();
 
-    }, [workspace]);
+    }, [props.workspace]);
 
     return (
         <FlatList
@@ -32,7 +34,7 @@ export default function BoardList({ workspace }: { workspace: Workspace }): JSX.
             showsVerticalScrollIndicator={false}
             keyExtractor={(item: Board, index: number) => index.toString()}
             renderItem={({ item }: ListRenderItemInfo<Board>) => <BoardItem item={item} />}
-            ListHeaderComponent={() => <BoardListHeader workspace={workspace} />}
+            ListHeaderComponent={() => <BoardListHeader workspace={props.workspace} />}
         />
     );
 
