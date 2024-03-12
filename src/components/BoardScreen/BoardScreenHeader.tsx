@@ -7,13 +7,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function BoardScreenHeader({ routeParams }) {
 
-    const { board } = routeParams;
+    const { board, workspace } = routeParams;
 
     const navigation = useNavigation();
     const route = useRoute();
 
-    const board = route.params.board;
-    const workspace = route.params.workspace;
 
     const boardName = board ? board.name : 'Board name';
     const workspaceName = workspace ? workspace.displayName : 'Workspace name';
