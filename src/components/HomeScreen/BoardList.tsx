@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import Board from '@src/api/Board';
 import Workspace from '@src/api/Workspace';
 import { FlatList } from '@gluestack-ui/themed';
 import BoardListHeader from './BoardListHeader';
 import BoardItem from './BoardItem';
 import { ListRenderItemInfo } from 'react-native';
+import { useBoardListContext, BoardListContextData } from './BoardListContext';
 
 
 /**
@@ -16,21 +17,17 @@ import { ListRenderItemInfo } from 'react-native';
  */
 export default function BoardList(props: { workspace: Workspace }): JSX.Element {
 
-    const [workspaceBoards, setWorkspaceBoards] = React.useState<Board[]>([]);
+    const context: BoardListContextData = useBoardListContext();
 
     React.useEffect(() => {
-        const initWorkspaceBoards = async (): Promise<void> => {
-            const boards = await props.workspace.getBoards();
-            setWorkspaceBoards(boards);
-        }
 
-        initWorkspaceBoards();
+        context.initWorkspaceBoards(props.workspace);
 
-    }, [props.workspace]);
+    }, [props.workspace, context.reload]);
 
     return (
         <FlatList
-            data={workspaceBoards}
+            data={context.workspaceBoards}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item: Board, index: number) => index.toString()}
             renderItem={({ item }: ListRenderItemInfo<Board>) => <BoardItem item={item} />}

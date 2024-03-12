@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import { Modal, View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
+import { useBoardListContext } from './BoardListContext';
 
 interface BoardModalCreateProps {
     isVisible: boolean;
     onClose: () => void;
-    workspaceId: string;
+    workspace: Workspace;
 }
 
 export default function BoardModalCreate(props: BoardModalCreateProps): JSX.Element {
     const [name, setName] = useState('');
+    const context = useBoardListContext();
 
     const handleNameChange = (value: string) => {
         setName(value);
     };
 
-    const add = () => {
-        // Utilisez l'identifiant du workspace lors de la création du tableau
-        Board.create(name, props.workspaceId);
-        console.log(name, props.workspaceId);
+    const add = async () => {
+        const success: boolean = await context.addBoard(name, props.workspace);
+
+        if (!success) {
+            return;
+        }
+
         setName('');
+        props.onClose();
+        context.triggerReload();
     };
 
     return (

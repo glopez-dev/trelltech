@@ -4,6 +4,7 @@ import Member from '@src/api/Member';
 import Workspace from '@src/api/Workspace';
 import BoardList from '@src/components/HomeScreen/BoardList';
 import { useAppContext } from '@src/context/AppContextProvider';
+import { BoardListContextProvider } from './BoardListContext';
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#000000' },
@@ -74,7 +75,11 @@ export default function WorkspaceList(props: WorkspaceListProps): JSX.Element {
                 keyExtractor={(item: Workspace) => item.id}
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={() => <WorkspaceListHeader />}
-                renderItem={({ item }: ListRenderItemInfo<Workspace>) => <BoardList workspace={item} />}
+                renderItem={({ item }: ListRenderItemInfo<Workspace>) => (
+                    <BoardListContextProvider>
+                        <BoardList workspace={item} />
+                    </BoardListContextProvider>
+                )}
             />
         )
 

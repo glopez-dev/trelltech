@@ -4,7 +4,7 @@ export * from './BoardList';
 export * from './BoardListHeader';
 export * from './BoardModalCreate';
 export * from './HeaderRight';
-export * from './WorkspaceButtonAdd';
+export * from './BoardButtonAdd';
 export * from './WorkspaceButtonUpdate';
 export * from './WorkspaceList';
 export * from './WorkspaceModalAdd';

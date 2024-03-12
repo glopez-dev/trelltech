@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Workspace from '@src/api/Workspace';
 import WorkspaceModalDelete from './WorkspaceModalDelete';
 import WorkspaceModalUpdate from './WorkspaceModalUpdate';
-import { WorkspaceButtonAdd } from './WorkspaceButtonAdd';
+import { BoardButtonAdd } from './BoardButtonAdd';
 
 export default function BoardListHeader({ workspace }: { workspace: Workspace }) {
 
@@ -50,7 +50,7 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
                 <WorkspaceModalDelete visible={modalVisible} onClose={closeModal} workspace={workspace} />
                 <WorkspaceModalUpdate visible={showModal} onClose={() => setShowModal(false)} workspace={workspace} />
 
-                <WorkspaceButtonAdd workspaceId={workspace.id} />
+                <BoardButtonAdd workspace={workspace} />
             </View>
         </View>
 
