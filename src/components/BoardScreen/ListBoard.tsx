@@ -6,19 +6,20 @@ import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons
 import AddCard from './AddCard';
 import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
+import Board from '@src/api/Board';
 
 interface ListData {
     id: string;
     name: string;
 }
 
-const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
+const ListBoard: React.FC<{ baord: Board }> = ({ board }) => {
     const [lists, setLists] = useState<ListData[]>([]);
 
     useEffect(() => {
         const fetchList = async () => {
             try {
-                const fetchedLists = await List.getLists(boardId);
+                const fetchedLists = await List.getLists(board.id);
                 setLists(fetchedLists);
                 console.log("list", fetchedLists);
             } catch (error) {
@@ -27,7 +28,7 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
         };
 
         fetchList();
-    }, [boardId]);
+    }, [board]);
 
     return (
         <View style={styles.container}>
@@ -38,14 +39,14 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
                             <View style={styles.container1}>
                                 <View style={styles.container2}>
                                     <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
-                                    <AddCard boardId={boardId} />
+                                    <AddCard boardId={board.id} />
 
                                 </View>
                                 <ModalList listId={list.id} name={list.name} />
                             </View>
                         </View>
                     ))}
-                    <ButtonAddList boardId={boardId} />
+                    <ButtonAddList boardId={board.id} />
 
 
                 </PagerView>
