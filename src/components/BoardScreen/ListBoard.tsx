@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PagerView from 'react-native-pager-view'; // Import PagerView
 import List from '@src/api/Board'; // Adjust the import path based on your project structure
+import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
+import AddCard from './AddCard';
+import ButtonAddList from './ButtonAddList';
 
 interface ListData {
-    // Define the structure of your list data
     name: string;
-    // Add more properties as needed
 }
 
 const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
@@ -16,7 +18,6 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
             try {
                 const fetchedLists = await List.getLists(boardId);
                 setLists(fetchedLists);
-
             } catch (error) {
                 console.error("Error fetching lists:", error);
             }
@@ -26,33 +27,59 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
     }, [boardId]);
 
     return (
-        <View style={styles.container2} >
-            {lists.map((list, index) => (
-                <View style={styles.container1}>
-                    <Text style={styles.container} key={index}>{list.name}</Text>
-                </View>
-            ))}
+        <View style={styles.container}>
+            {lists.length > 0 && (
+                <PagerView style={styles.viewPager} initialPage={0}>
+                    {lists.map((list, index) => (
+                        <View key={index} style={styles.page}>
+                            <View style={styles.container1}>
+                                <View style={styles.container2}>
+                                    <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
+                                    <AddCard boardId={boardId} />
+
+                                </View>
+                                <TouchableOpacity>
+                                    <Icon as={ThreeDotsIcon} m="$2" w="$4" h="$4" color="white" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    ))}
+                    <ButtonAddList boardId={boardId} />
+
+                </PagerView>
+            )}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
 
-        backgroundColor: 'red',
-        flexDirection: 'row',
 
+
+    },
+    viewPager: {
+        flex: 1,
+    },
+    page: {
+        flex: 1,
+        marginTop: 30,
+        alignItems: 'center',
     },
     container1: {
-        backgroundColor: 'green',
-        flexDirection: 'row',
-
-    },
-
-    container2: {
-        backgroundColor: 'green',
+        backgroundColor: 'black',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        width: '90%',
+    },
+    container2: {
+        flexDirection: 'column',
+        width: '90%',
+        alignItems: 'flex-start',
+        padding: 10,
+        gap: 15,
     }
-})
+});
+
 export default ListBoard;

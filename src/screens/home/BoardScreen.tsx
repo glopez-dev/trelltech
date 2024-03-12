@@ -33,7 +33,7 @@ export function BoardScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0260cc',
+        backgroundColor: '#0079be',
         gap: 80
 
     },
