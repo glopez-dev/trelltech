@@ -2,7 +2,8 @@ import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
-import ButtonUpdate from '@src/components/HomeScreen/ButtonUpdate';
+import ModalList from '@src/components/BoardScreen/ModalList';
+// import ButtonUpdate from '@src/components/HomeScreen/ButtonUpdate';
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -31,7 +32,16 @@ export function cardScreenOptions({ navigation, route }): object {
 
 
 export function CardScreen() {
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
     return (
-        <ButtonUpdate />
+
+        <>
+            <ModalList />
+        </>
     );
 }

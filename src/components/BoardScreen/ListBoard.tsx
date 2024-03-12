@@ -5,6 +5,7 @@ import List from '@src/api/Board'; // Adjust the import path based on your proje
 import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
 import AddCard from './AddCard';
 import ButtonAddList from './ButtonAddList';
+import ModalList from '@src/components/BoardScreen/ModalList';
 
 interface ListData {
     name: string;
@@ -38,9 +39,7 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
                                     <AddCard boardId={boardId} />
 
                                 </View>
-                                <TouchableOpacity>
-                                    <Icon as={ThreeDotsIcon} m="$2" w="$4" h="$4" color="white" />
-                                </TouchableOpacity>
+                                <ModalList />
                             </View>
                         </View>
                     ))}
