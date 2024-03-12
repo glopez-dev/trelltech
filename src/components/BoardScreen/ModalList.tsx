@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Modal, Button, Text, TouchableOpacity } from 'react-native';
 import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
 import ButtonDeleteList from './ButtonDeleteList';
-import ButtonUpdate from '../HomeScreen/ButtonUpdate';
+import ButtonUpdateList from './ButtonUpdateList';
 
 
 const ModalList = ({ listId, name }) => {
@@ -30,6 +30,7 @@ const ModalList = ({ listId, name }) => {
                         </TouchableOpacity>
 
                         <ButtonDeleteList listId={listId} />
+                        <ButtonUpdateList listId={listId} name={name} />
 
 
 
