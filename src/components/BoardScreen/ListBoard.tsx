@@ -39,6 +39,8 @@ const ListBoard: React.FC<{ baord: Board }> = ({ board }) => {
                             <View style={styles.container1}>
                                 <View style={styles.container2}>
                                     <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
+
+
                                     <AddCard boardId={board.id} />
 
                                 </View>
