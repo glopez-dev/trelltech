@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view'; // Import PagerView
 import List from '@src/api/Board'; // Adjust the import path based on your project structure
 import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
-import AddCard from './AddCard';
+import AddCard from './Card/AddCard';
 import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
 import Board from '@src/api/Board';
