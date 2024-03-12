@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import Workspace from '@src/api/Workspace';
 import { useAppContext } from '@src/context/AppContextProvider';
 
@@ -16,7 +16,7 @@ type WorkspaceDeleteModalProps = {
  * @param workspaceId ID of the workspace to delete.
  * @returns The component.
  */
-const WorkspaceModalDelete = (props: WorkspaceDeleteModalProps): JSX.Element => {
+export default function WorkspaceModalDelete(props: WorkspaceDeleteModalProps): JSX.Element {
 
     const { deleteWorkspace, triggerReload } = useAppContext();
 
@@ -32,20 +32,52 @@ const WorkspaceModalDelete = (props: WorkspaceDeleteModalProps): JSX.Element => 
             animationType="slide"
             transparent={true}
             onRequestClose={props.onClose}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+            <View style={styles.modal}>
 
-                <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, gap: 25 }}>
-                    <TouchableOpacity onPress={props.onClose} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ color: 'blue' }}>Fermer</Text>
+                <View style={styles.modalContent}>
+                    <TouchableOpacity onPress={props.onClose} style={styles.closeButton}>
+                        <Text style={styles.closeButtonText}>Fermer</Text>
                     </TouchableOpacity>
                     <Text>Pour supprimer le Workspace, cliquez sur le bouton "Supprimer".</Text>
-                    <TouchableOpacity onPress={pressDeleteHandler} style={{ backgroundColor: '#a4262a', padding: 10, alignItems: 'center', marginTop: 10 }}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Supprimer</Text>
+                    <TouchableOpacity onPress={pressDeleteHandler} style={styles.deleteButton}>
+                        <Text style={styles.deleteButtonText}>Supprimer</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </Modal>
     );
+
 };
 
-export default WorkspaceModalDelete;
+const styles = StyleSheet.create({
+    modal: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        gap: 25,
+    },
+    closeButton: {
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
+    closeButtonText: {
+        color: 'blue',
+    },
+    deleteButton: {
+        backgroundColor: '#a4262a',
+        padding: 10,
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    deleteButtonText: {
+        color: 'white',
+        fontSize: 20,
+    },
+});
+
