@@ -3,6 +3,7 @@ import Board from '@src/api/Board';
 import Workspace from '@src/api/Workspace';
 
 export interface BoardListContextData {
+    workspace: Workspace;
     workspaceBoards: Board[];
     setWorkspaceBoards: React.Dispatch<React.SetStateAction<Board[]>>;
     initWorkspaceBoards: (workspace: Workspace) => Promise<void>;
@@ -22,8 +23,13 @@ export const useBoardListContext = () => {
     return context;
 };
 
+type BoardListContextProviderProps = {
+    children: React.ReactNode,
+    workspace: Workspace;
+}
 
-export function BoardListContextProvider({ children }: { children: React.ReactNode }) {
+
+export function BoardListContextProvider({ children, workspace }: BoardListContextProviderProps): JSX.Element {
 
     const [workspaceBoards, setWorkspaceBoards] = React.useState<Board[]>([]);
     const [reload, setReload] = React.useState(false);
@@ -58,6 +64,7 @@ export function BoardListContextProvider({ children }: { children: React.ReactNo
     }
 
     const contextValue: BoardListContextData = {
+        workspace,
         workspaceBoards,
         setWorkspaceBoards,
         initWorkspaceBoards,

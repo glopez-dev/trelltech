@@ -4,14 +4,16 @@ import { useNavigation } from '@react-navigation/native';
 import Board from '@src/api/Board';
 import { StyleSheet } from 'react-native';
 import BoardButtonDelete from './BoardButtonDelete';
+import { useBoardListContext } from './BoardListContext';
 
 export default function BoardItem({ item }: { item: Board }) {
 
+    const context = useBoardListContext();
     const { navigate } = useNavigation();
 
     const navigateToBoardScreen = (board: Board) => {
         /* @ts-ignore */
-        navigate('BoardScreen', { boardId: board.id });
+        navigate('BoardScreen', { board: board, workspace: context.workspace });
     }
 
     const styles = StyleSheet.create({

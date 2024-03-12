@@ -76,7 +76,7 @@ export default function WorkspaceList(props: WorkspaceListProps): JSX.Element {
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={() => <WorkspaceListHeader />}
                 renderItem={({ item }: ListRenderItemInfo<Workspace>) => (
-                    <BoardListContextProvider>
+                    <BoardListContextProvider key={item.id} workspace={item}>
                         <BoardList workspace={item} />
                     </BoardListContextProvider>
                 )}

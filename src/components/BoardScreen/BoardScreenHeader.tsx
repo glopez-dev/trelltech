@@ -2,12 +2,20 @@ import * as React from 'react';
 import { VStack, Text, Box } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 export default function BoardScreenHeader() {
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const board = route.params.board;
+    const workspace = route.params.workspace;
+
+    const boardName = board ? board.name : 'Board name';
+    const workspaceName = workspace ? workspace.displayName : 'Workspace name';
+
 
     return (
         <SafeAreaView style={{
@@ -28,8 +36,8 @@ export default function BoardScreenHeader() {
                 onPress={() => { navigation.goBack() }}
             />
             <VStack style={{ padding: 1, margin: 1 }}>
-                <Text style={{ fontSize: 18, color: 'white' }}>Board name</Text>
-                <Text style={{ fontSize: 14, color: 'white', opacity: 0.5 }}>Workspace name </Text>
+                <Text style={{ fontSize: 18, color: 'white' }}>{boardName}</Text>
+                <Text style={{ fontSize: 14, color: 'white', opacity: 0.5 }}>{workspaceName}</Text>
             </VStack>
         </SafeAreaView >
     );
