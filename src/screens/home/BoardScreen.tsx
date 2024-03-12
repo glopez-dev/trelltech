@@ -1,48 +1,40 @@
-import * as React from 'react';
-import { View, Text } from '@gluestack-ui/themed';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
+import { useRoute } from '@react-navigation/native';
+import ListBoard from '@src/components/BoardScreen/ListBoard';
 
-/**
- * The function that manages the logic to configure the BoardScreen options.
- * Is passed to the `Tab.Screen` component that renders the `BoardScreen`.
- *
- * @param {object} - An object that contains the `navigation` and `route` props.
- * @returns {object} - An object that contains the `Screen` options. 
- */
-export function boardScreenOptions({ navigation, route }): object {
+// Define the type of route.params
+interface RouteParams {
+    boardId: string; // Assuming boardId is of type string
+}
 
+export function boardScreenOptions({ route }) {
     return {
-        header: () => <BoardScreenHeader />,
+        header: () => <BoardScreenHeader routeParams={route.params} />,
     };
 }
 
 export function BoardScreen() {
+    const route = useRoute();
+    const { boardId }: RouteParams = route.params; // Specify the type of route.params
+
     return (
-        /* Home screen content goes here */
         <View style={styles.container}>
-            <ButtonAddList />
-        </View>
+            {/* <ButtonAddList boardId={boardId} /> */}
+
+            <ListBoard boardId={boardId} />
+
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0260cc',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        color: 'white',
+        backgroundColor: '#0079be',
+        gap: 80
+
     },
 });
-
-const mockLists = [
-    { id: '1', name: 'To Do' },
-    { id: '2', name: 'In Progress' },
-    { id: '3', name: 'Done' },
-]
-
-
