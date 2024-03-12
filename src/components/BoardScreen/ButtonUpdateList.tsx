@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity, } from 'react-native';
 import List from '@src/api/List';
 
 const ButtonAddList: React.FC<{ listId: string; name: string }> = ({ listId, name }) => {
@@ -38,7 +38,7 @@ const ButtonAddList: React.FC<{ listId: string; name: string }> = ({ listId, nam
             ) : (
                 <View style={{ width: '100%', backgroundColor: '#000000', padding: 10 }}>
                     <TextInput
-                        value={newName} // Utiliser le nouveau nom ici
+                        value={newName}
                         onChangeText={handleChangeText}
                         onSubmitEditing={handleUpdate}
                         placeholder="Entrez le nom de votre liste"
