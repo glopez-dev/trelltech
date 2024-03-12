@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, Button, Text, TextInput } from 'react-native';
+import { Modal, View, Button, Text, TextInput, StyleSheet } from 'react-native';
 import { useAppContext } from '@src/context/AppContextProvider';
 
 interface WorkspaceModalAddProps {
@@ -12,10 +12,7 @@ export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.El
     const [name, setName] = React.useState('');
     const appContext = useAppContext();
 
-
-    const handleNameChange = (value: string): void => {
-        setName(value);
-    };
+    const handleNameChange = (value: string) => setName(value);
 
     const add = async () => {
         const success = await appContext.addWorkspace(name);
@@ -32,17 +29,16 @@ export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.El
             animationType="slide"
             transparent={true}
             visible={props.isVisible}
-
         >
-            <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                <View style={{ backgroundColor: 'white', height: '89%' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#000000' }}>
+            <View style={styles.modal}>
+                <View style={styles.modalContent}>
+                    <View style={styles.modalHeader}>
                         <Button title="Fermer" onPress={props.onClose} />
                     </View>
-                    <View style={{ height: '100%', backgroundColor: '#000000', gap: 10 }}>
-                        <Text style={{ fontSize: 20, marginLeft: 10, color: 'white' }}>Nom de votre Workspace</Text>
-                        <View style={{ marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10, backgroundColor: '#1c1c1e', borderRadius: 5, flexDirection: 'row', alignItems: 'center', }}>
-                            <TextInput style={{ flex: 1, color: 'white', }} placeholder="Nom de votre Workspace" value={name} onChangeText={handleNameChange} />
+                    <View style={styles.modalBody}>
+                        <Text style={styles.modalBodyText}>Nom de votre Workspace</Text>
+                        <View style={styles.modalBodyInput}>
+                            <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre Workspace" value={name} onChangeText={handleNameChange} />
                             <Button title="Add" onPress={add} />
                         </View>
                     </View>
@@ -51,3 +47,50 @@ export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.El
         </Modal>
     );
 };
+
+
+const styles = StyleSheet.create({
+    modal: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        height: '89%',
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        backgroundColor: '#000000',
+    },
+    modalBody: {
+        height: '100%',
+        backgroundColor: '#000000',
+        gap: 10,
+    },
+    modalBodyText: {
+        fontSize: 20,
+        marginLeft: 10,
+        color: 'white',
+    },
+    modalBodyInput: {
+        marginTop: 10,
+        marginBottom: 10,
+        margin: 10,
+        padding: 10,
+        backgroundColor: '#1c1c1e',
+        borderRadius: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    modalBodyInputText: {
+        flex: 1,
+        color: 'white',
+    },
+    modalBodyInputButton: {},
+});
+
+
+
+
