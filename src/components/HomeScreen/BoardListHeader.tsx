@@ -7,9 +7,7 @@ import { BoardButtonAdd } from './BoardButtonAdd';
 
 export default function BoardListHeader({ workspace }: { workspace: Workspace }) {
 
-
     const [modalVisible, setModalVisible] = React.useState(false);
-
 
     const ActivateModal = () => {
         console.log('test');
