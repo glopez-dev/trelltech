@@ -31,7 +31,7 @@ export default function BoardItem({ item }: { item: Board }) {
             onPress={() => navigateToBoardScreen(item)}
         >
             <Text style={styles.item}>{item.name}</Text>
-            <BoardButtonDelete boardId={item.id} />
+            <BoardButtonDelete board={item} />
         </Pressable>
     );
 

@@ -9,6 +9,7 @@ export interface BoardListContextData {
     reload: boolean;
     triggerReload: () => void;
     addBoard: (name: string, workspace: Workspace) => Promise<boolean>;
+    deleteBoard: (deletedBoard: Board) => Promise<boolean>;
 }
 
 const BoardListContext = React.createContext<BoardListContextData | null>(null);
@@ -47,6 +48,15 @@ export function BoardListContextProvider({ children }: { children: React.ReactNo
         return true;
     }
 
+    const deleteBoard = async (deletedBoard: Board): Promise<boolean> => {
+        const success: boolean = await deletedBoard.delete();
+        if (!success) {
+            return false;
+        }
+        setWorkspaceBoards(workspaceBoards.filter((board: Board) => board.id !== deletedBoard.id));
+        return true;
+    }
+
     const contextValue: BoardListContextData = {
         workspaceBoards,
         setWorkspaceBoards,
@@ -54,6 +64,7 @@ export function BoardListContextProvider({ children }: { children: React.ReactNo
         triggerReload,
         reload,
         addBoard,
+        deleteBoard,
     };
 
 

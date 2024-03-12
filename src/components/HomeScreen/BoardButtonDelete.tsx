@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Board from '@src/api/Board';
+import { useBoardListContext } from './BoardListContext';
 
 interface BoardButtonDeleteProps {
-    boardId: string;
+    board: Board;
 }
 
 /**
@@ -14,7 +15,18 @@ interface BoardButtonDeleteProps {
  */
 export default function BoardButtonDelete(props: BoardButtonDeleteProps): JSX.Element {
 
-    const handleDelete = async () => await Board.delete(props.boardId);
+    const context = useBoardListContext();
+
+    const handleDelete = async () => {
+
+        const success: boolean = await context.deleteBoard(props.board);
+
+        if (!success) {
+            return;
+        }
+
+        context.triggerReload();
+    }
 
     return (
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
