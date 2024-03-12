@@ -7,7 +7,7 @@ interface Props {
     onClose: () => void;
 }
 
-const ModalAdd: React.FC<Props> = ({ isVisible, onClose }) => {
+const ModalWorkspaceAdd: React.FC<Props> = ({ isVisible, onClose }) => {
     const [name, setName] = useState('');
 
     const handleNameChange = (value: string) => {
@@ -44,4 +44,4 @@ const ModalAdd: React.FC<Props> = ({ isVisible, onClose }) => {
     );
 };
 
-export default ModalAdd;
+export default ModalWorkspaceAdd;

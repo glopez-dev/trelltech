@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Modal, Button, Text, TouchableOpacity } from 'react-native';
 import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
+import ButtonDeleteList from './ButtonDeleteList';
+import ButtonUpdate from '../HomeScreen/ButtonUpdate';
 
 
-const ModalList = () => {
+const ModalList = ({ listId, name }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -26,7 +28,10 @@ const ModalList = () => {
                         <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} >
                             <Text style={{ color: 'blue' }}>Fermer</Text>
                         </TouchableOpacity>
-                        <Text>Contenu de la modal</Text>
+
+                        <ButtonDeleteList listId={listId} />
+
+
 
                     </View>
                 </View>

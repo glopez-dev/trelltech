@@ -8,6 +8,10 @@ interface ListData {
 }
 
 export default class List {
+    static getLists: any;
+    static getBoard(boardId: any) {
+        throw new Error('Method not implemented.');
+    }
 
     private static APIKey: string = process.env.EXPO_PUBLIC_API_KEY;
     private static APIToken: string = process.env.EXPO_PUBLIC_API_TOKEN;
@@ -80,6 +84,25 @@ export default class List {
         }
     }
 
+    public static async update(id: string): Promise<void> {
+        const baseURL = List.baseURL;
+
+        const queryParams: string = new URLSearchParams({
+            key: List.APIKey,
+            token: List.APIToken,
+            name: this.name
+        }).toString();
+
+        const url = `${baseURL}/${id}?${queryParams}`;
+
+        try {
+            const response = await axios.put(url);
+        } catch (error) {
+            console.error("Error updating list:", error);
+            return null;
+        }
+    }
+
     /**
      * Retrieves a list by its ID using the Trello API.
      *
@@ -110,6 +133,26 @@ export default class List {
         const id = this.id;
         const baseURL = List.baseURL;
 
+        const queryParams: string = new URLSearchParams({
+            key: List.APIKey,
+            token: List.APIToken,
+            closed: "true",
+        }).toString();
+
+        const url = `${baseURL}/${id}?${queryParams}`;
+
+        try {
+            const response = await axios.put(url);
+            return true;
+        } catch (error) {
+            console.error("Error deleting list:", error);
+            return false;
+        }
+    }
+
+    public static async delete(id: string): Promise<boolean> {
+
+        const baseURL = List.baseURL;
         const queryParams: string = new URLSearchParams({
             key: List.APIKey,
             token: List.APIToken,

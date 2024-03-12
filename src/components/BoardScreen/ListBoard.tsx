@@ -8,6 +8,7 @@ import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
 
 interface ListData {
+    id: string;
     name: string;
 }
 
@@ -19,6 +20,7 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
             try {
                 const fetchedLists = await List.getLists(boardId);
                 setLists(fetchedLists);
+                console.log("list", fetchedLists);
             } catch (error) {
                 console.error("Error fetching lists:", error);
             }
@@ -39,11 +41,12 @@ const ListBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
                                     <AddCard boardId={boardId} />
 
                                 </View>
-                                <ModalList />
+                                <ModalList listId={list.id} name={list.name} />
                             </View>
                         </View>
                     ))}
                     <ButtonAddList boardId={boardId} />
+
 
                 </PagerView>
             )}
