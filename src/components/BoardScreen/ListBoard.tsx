@@ -7,14 +7,17 @@ import AddCard from './Card/AddCard';
 import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
 import Board from '@src/api/Board';
+import ListCard from './Card/ListCard';
 
-interface ListData {
-    id: string;
-    name: string;
+
+type ListBoardProps = {
+    board: Board;
 }
 
-const ListBoard: React.FC<{ baord: Board }> = ({ board }) => {
-    const [lists, setLists] = useState<ListData[]>([]);
+
+
+const ListBoard: React.FC<ListBoardProps> = ({ board }: ListBoardProps) => {
+    const [lists, setLists] = useState([]);
 
     useEffect(() => {
         const fetchList = async () => {
@@ -40,8 +43,9 @@ const ListBoard: React.FC<{ baord: Board }> = ({ board }) => {
                                 <View style={styles.container2}>
                                     <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
 
+                                    <ListCard list={list} />
 
-                                    <AddCard boardId={board.id} />
+                                    <AddCard list={list} />
 
                                 </View>
                                 <ModalList listId={list.id} name={list.name} />

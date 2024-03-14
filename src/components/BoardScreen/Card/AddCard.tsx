@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import List from '@src/api/List';
+import Card from '@src/api/Card';
 
-const AddCard: React.FC<{ boardId: string }> = ({ boardId }) => {
+const AddCard: React.FC<{ list: List }> = ({ list }) => {
     const [isInputVisible, setInputVisible] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
 
@@ -20,8 +21,8 @@ const AddCard: React.FC<{ boardId: string }> = ({ boardId }) => {
     };
 
     const handleAdd = () => {
-        List.create(name, boardId);
-        console.log("Texte ajouté :", name + " dans la liste d'id : " + boardId);
+        Card.create(list.id, name);
+        console.log("Texte ajouté :", name + " dans la liste d'id : " + list.id);
         setInputVisible(false);
         setName('');
     };
@@ -42,7 +43,7 @@ const AddCard: React.FC<{ boardId: string }> = ({ boardId }) => {
                         value={name}
                         onChangeText={handleChangeText}
                         onSubmitEditing={handleAdd}
-                        placeholder="Entrez le nom de votre liste"
+                        placeholder="Nom de la card"
                         autoFocus
                         style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, color: 'white', width: '100%' }}
                         placeholderTextColor="white"

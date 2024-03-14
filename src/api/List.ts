@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Board from "@src/api/Board";
+import Card, { CardData } from "@src/api/Card";
 
 interface ListData {
     id: string,
@@ -123,6 +124,26 @@ export default class List {
             return null;
         }
     }
+
+
+    async getCards(): Promise<Card[]> {
+        const listId = this.id;
+        const baseURL = List.baseURL;
+        const key = List.APIKey;
+        const token = List.APIToken;
+        const url = `${baseURL}/${listId}/cards?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get(url);
+            const cardDataList: CardData[] = response.data;
+            return cardDataList.map((cardData: CardData) => new Card(cardData));
+        } catch (error) {
+            console.error("Error fetching cards:", error.message);
+            throw error;
+        }
+    }
+
+
 
     /**
      * Asynchronously closes (archives) the list by sending a PUT request to the Trello API.
