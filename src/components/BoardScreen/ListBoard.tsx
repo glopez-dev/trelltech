@@ -8,7 +8,7 @@ import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
 import Board from '@src/api/Board';
 import ListCard from './Card/ListCard';
-
+import { CardListContextProvider } from './Card/CardListContextProvider';
 
 type ListBoardProps = {
     board: Board;
@@ -37,27 +37,30 @@ const ListBoard: React.FC<ListBoardProps> = ({ board }: ListBoardProps) => {
         <View style={styles.container}>
             {lists.length > 0 && (
                 <PagerView style={styles.viewPager} initialPage={0}>
+                    {/* Render each list of cards */}
                     {lists.map((list, index) => (
-                        <View key={index} style={styles.page}>
-                            <View style={styles.container1}>
-                                <View style={styles.container2}>
-                                    <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
+                        <CardListContextProvider list={list} >
+                            <View key={index} style={styles.page}>
+                                <View style={styles.container1}>
+                                    <View style={styles.container2}>
+                                        <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
 
-                                    <ListCard list={list} />
+                                        <ListCard list={list} />
 
-                                    <AddCard list={list} />
+                                        <AddCard list={list} />
 
+                                    </View>
+                                    <ModalList listId={list.id} name={list.name} />
                                 </View>
-                                <ModalList listId={list.id} name={list.name} />
                             </View>
-                        </View>
+
+                        </CardListContextProvider>
                     ))}
                     <ButtonAddList boardId={board.id} />
-
-
                 </PagerView>
-            )}
-        </View>
+            )
+            }
+        </View >
     );
 };
 

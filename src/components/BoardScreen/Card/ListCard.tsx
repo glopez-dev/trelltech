@@ -6,9 +6,7 @@ type ListCardProps = {
     list: List
 }
 
-
 const ListCard = ({ list }: ListCardProps) => {
-    const [cards, setCards] = useState([]);
 
 
     const getCards = async () => {
@@ -23,9 +21,6 @@ const ListCard = ({ list }: ListCardProps) => {
         catch (error) {
             console.error("Error fetching cards:", error);
         }
-
-
-
 
     }
 
