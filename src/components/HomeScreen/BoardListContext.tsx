@@ -25,7 +25,7 @@ export const useBoardListContext = () => {
 
 type BoardListContextProviderProps = {
     children: React.ReactNode,
-    workspace: Workspace;
+    workspace: Workspace,
 }
 
 
