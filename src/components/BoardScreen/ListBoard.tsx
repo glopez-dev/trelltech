@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view'; // Import PagerView
-import List from '@src/api/Board'; // Adjust the import path based on your project structure
-import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
 import AddCard from './Card/AddCard';
 import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
-import Board from '@src/api/Board';
 import ListCard from './Card/ListCard';
 import { CardListContextProvider } from './Card/CardListContextProvider';
+
+
+import Board from '@src/api/Board';
+import List from '@src/api/List';
 
 type ListBoardProps = {
     board: Board;
@@ -16,30 +17,29 @@ type ListBoardProps = {
 
 
 
-const ListBoard: React.FC<ListBoardProps> = ({ board }: ListBoardProps) => {
-    const [lists, setLists] = useState([]);
+export default function ListBoard({ board }: ListBoardProps): JSX.Element {
+    const [lists, setLists] = useState<List[]>([]);
 
     useEffect(() => {
-        const fetchList = async () => {
+        const fetchLists = async () => {
             try {
-                const fetchedLists = await List.getLists(board.id);
+                const fetchedLists = await Board.getLists(board.id);
+                console.log("[ListBoard] fetchedLists:", fetchedLists);
                 setLists(fetchedLists);
-                console.log("list", fetchedLists);
             } catch (error) {
-                console.error("Error fetching lists:", error);
+                console.error(error);
             }
         };
 
-        fetchList();
+        fetchLists();
     }, [board]);
 
     return (
         <View style={styles.container}>
             {lists.length > 0 && (
                 <PagerView style={styles.viewPager} initialPage={0}>
-                    {/* Render each list of cards */}
-                    {lists.map((list, index) => (
-                        <CardListContextProvider list={list} >
+                    {lists.map((list, index): JSX.Element => (
+                        <CardListContextProvider list={list} key={index}>
                             <View key={index} style={styles.page}>
                                 <View style={styles.container1}>
                                     <View style={styles.container2}>
@@ -53,23 +53,18 @@ const ListBoard: React.FC<ListBoardProps> = ({ board }: ListBoardProps) => {
                                     <ModalList listId={list.id} name={list.name} />
                                 </View>
                             </View>
-
                         </CardListContextProvider>
                     ))}
                     <ButtonAddList boardId={board.id} />
                 </PagerView>
-            )
-            }
-        </View >
+            )}
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
-
-
     },
     viewPager: {
         flex: 1,
@@ -94,4 +89,3 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListBoard;

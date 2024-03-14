@@ -3,6 +3,7 @@ import List from '@src/api/List';
 import Card from '@src/api/Card';
 
 export type ListContextProviderData = {
+    list
     cards,
     initListCards,
     addCard,
@@ -20,8 +21,8 @@ export const useCardListContext = () => {
 };
 
 type CardListContextProviderProps = {
-    children: React.ReactNode,
     list: List,
+    children: React.ReactNode,
 }
 
 /**
@@ -36,13 +37,27 @@ export function CardListContextProvider({ children, list }: CardListContextProvi
 
     const [cards, setCards] = React.useState<Card[]>([]);
 
-    const initListCards = async (list: List): Promise<void> => {
-        const cards = await list.getCards();
+    React.useEffect(() => {
+        initListCards();
+    }, []);
+
+    const initListCards = async (): Promise<void> => {
+        const cards: Card[] = await List.getCards(list.id);
         setCards(cards);
     };
 
     const addCard = async (name: string): Promise<void> => {
-        const card = await Card.create(list.id, name);
+        if (!name) {
+            throw new Error('name is null or undefined');
+        }
+        if (!list) {
+            throw new Error('list is null or undefined');
+        }
+        const card = await Card.create(list.id, name)
+            .catch((error) => {
+                console.error('Error when creating card', error);
+                throw error;
+            });
         if (card) {
             setCards([...cards, card]);
         }
@@ -57,6 +72,7 @@ export function CardListContextProvider({ children, list }: CardListContextProvi
     };
 
     const contextValue: ListContextProviderData = {
+        list,
         cards,
         initListCards,
         addCard,

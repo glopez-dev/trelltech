@@ -8,32 +8,18 @@ type ListCardProps = {
 }
 
 const ListCard = ({ list }: ListCardProps) => {
-    const { cards, initListCards, addCard, deleteCard } = useCardListContext();
 
-
-    const getListCards = async () => {
-        const cards = await list.getCards();
-        console.log(cards);
-
-    }
-
-
-    useEffect(() => {
-
-        getListCards()
-
-
-    }, []);
+    const listContext = useCardListContext();
 
     const renderItem = ({ item }) => (
         <View>
-            <Text>{item.name}</Text> {/* Afficher uniquement le nom de la carte */}
+            <Text style={{ color: 'white' }}>{item.name}</Text>
         </View>
     );
 
     return (
         <FlatList
-            data={cards}
+            data={listContext.cards}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()} // Utilisez une clé unique pour chaque élément
         />

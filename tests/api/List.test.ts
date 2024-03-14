@@ -39,7 +39,7 @@ describe('List class', () => {
 
     it('should get the list cards', async () => {
         const card: Card = await Card.create(list.id, "My Card");
-        const cards: Card[] = await list.getCards();
+        const cards: Card[] = await List.getCards(list.id);
         expect(cards.length).toBe(1);
         expect(cards[0].name).toBe("My Card");
     })
