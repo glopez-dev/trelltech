@@ -43,9 +43,10 @@ export default function ListBoard({ board }: ListBoardProps): JSX.Element {
                             <View key={index} style={styles.page}>
                                 <View style={styles.container1}>
                                     <View style={styles.container2}>
+
                                         <Text style={{ fontSize: 19, color: 'white' }}>{list.name}</Text>
 
-                                        <ListCard list={list} />
+                                        <ListCard />
 
                                         <AddCard list={list} />
 

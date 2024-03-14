@@ -3,11 +3,8 @@ import { View, Text, FlatList } from 'react-native';
 import List from '@src/api/List';
 import { useCardListContext } from './CardListContextProvider';
 
-type ListCardProps = {
-    list: List
-}
 
-const ListCard = ({ list }: ListCardProps) => {
+const ListCard = () => {
 
     const listContext = useCardListContext();
 
@@ -21,7 +18,7 @@ const ListCard = ({ list }: ListCardProps) => {
         <FlatList
             data={listContext.cards}
             renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()} // Utilisez une clé unique pour chaque élément
+            keyExtractor={(item, index) => index.toString()}
         />
     );
 };
