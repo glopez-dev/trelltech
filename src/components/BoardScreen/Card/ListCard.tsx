@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import List from '@src/api/List';
+import { useCardListContext } from './CardListContextProvider';
 
 type ListCardProps = {
     list: List
 }
 
 const ListCard = ({ list }: ListCardProps) => {
+    const { cards, initListCards, addCard, deleteCard } = useCardListContext();
 
 
-    const getCards = async () => {
-
-        try {
-            const cards = await list.getCards();
-            setCards(cards);
-            console.log("caca", cards);
-
-        }
-
-        catch (error) {
-            console.error("Error fetching cards:", error);
-        }
+    const getListCards = async () => {
+        const cards = await list.getCards();
+        console.log(cards);
 
     }
 
+
     useEffect(() => {
 
-        getCards();
+        getListCards()
 
 
     }, []);

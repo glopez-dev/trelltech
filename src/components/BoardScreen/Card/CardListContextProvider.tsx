@@ -69,3 +69,4 @@ export function CardListContextProvider({ children, list }: CardListContextProvi
         </CardListContext.Provider>
     );
 
+}
