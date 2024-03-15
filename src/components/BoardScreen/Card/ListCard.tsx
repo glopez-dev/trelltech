@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import List from '@src/api/List';
+import React from 'react';
+import { View, Text, FlatList, ListRenderItem } from 'react-native';
 import { useCardListContext } from './CardListContextProvider';
+import Card from '@src/api/Card';
+
+type CardElementProps = {
+    item: Card
+}
+
+const CardElement: ListRenderItem<Card> = ({ item }: CardElementProps): JSX.Element => (
+    <View>
+        <Text style={{ color: 'white' }}>{item.name}</Text>
+    </View>
+);
 
 
 /**
@@ -15,11 +25,7 @@ const ListCard = () => {
 
     const listContext = useCardListContext();
 
-    const CardElement = ({ item }) => (
-        <View>
-            <Text style={{ color: 'white' }}>{item.name}</Text>
-        </View>
-    );
+
 
     return (
         <FlatList

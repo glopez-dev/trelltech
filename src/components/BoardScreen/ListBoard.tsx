@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import PagerView from 'react-native-pager-view'; // Import PagerView
-import AddCard from './Card/AddCard';
+import { View, Text, StyleSheet } from 'react-native';
+import PagerView from 'react-native-pager-view';
 import ButtonAddList from './ButtonAddList';
 import ModalList from '@src/components/BoardScreen/ModalList';
 import ListCard from './Card/ListCard';
 import { CardListContextProvider } from './Card/CardListContextProvider';
-
-
 import Board from '@src/api/Board';
 import List from '@src/api/List';
+import ListCardFooter from './Card/ListCardFooter';
 
 type ListBoardProps = {
     board: Board;
 }
 
 
-
-export default function ListBoard({ board }: ListBoardProps): JSX.Element {
+export default function ListBoard({ board }: Readonly<ListBoardProps>): JSX.Element {
     const [lists, setLists] = useState<List[]>([]);
 
     useEffect(() => {
@@ -48,7 +45,7 @@ export default function ListBoard({ board }: ListBoardProps): JSX.Element {
 
                                         <ListCard />
 
-                                        <AddCard list={list} />
+                                        <ListCardFooter />
 
                                     </View>
                                     <ModalList listId={list.id} name={list.name} />

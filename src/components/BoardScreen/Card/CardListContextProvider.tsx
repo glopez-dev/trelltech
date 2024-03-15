@@ -2,7 +2,7 @@ import React from 'react';
 import List from '@src/api/List';
 import Card from '@src/api/Card';
 
-export type ListContextProviderData = {
+export type CardListContextData = {
     list
     cards,
     initListCards,
@@ -10,7 +10,7 @@ export type ListContextProviderData = {
     deleteCard
 }
 
-const CardListContext = React.createContext<ListContextProviderData | null>(null);
+const CardListContext = React.createContext<CardListContextData | null>(null);
 
 export const useCardListContext = () => {
     const context = React.useContext(CardListContext);
@@ -71,7 +71,7 @@ export function CardListContextProvider({ children, list }: CardListContextProvi
         setCards(cards.filter((c) => c.id !== card.id));
     };
 
-    const contextValue: ListContextProviderData = {
+    const contextValue: CardListContextData = {
         list,
         cards,
         initListCards,

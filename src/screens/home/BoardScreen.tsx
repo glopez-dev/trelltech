@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
-import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
 import { useRoute } from '@react-navigation/native';
 import ListBoard from '@src/components/BoardScreen/ListBoard';
 import Board from '@src/api/Board';
