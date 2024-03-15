@@ -5,7 +5,7 @@ import { useCardListContext } from './CardListContextProvider';
 
 
 /**
- * Generates a ListCard component that displays a list of cards.
+ * Generates a FlatList style component that displays a list of cards.
  *
  * @return {JSX.Element} The ListCard component
  * 

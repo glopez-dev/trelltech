@@ -4,9 +4,10 @@ import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import ButtonAddList from '@src/components/BoardScreen/ButtonAddList';
 import { useRoute } from '@react-navigation/native';
 import ListBoard from '@src/components/BoardScreen/ListBoard';
+import Board from '@src/api/Board';
 
 interface RouteParams {
-    boardId: string;
+    board: Board;
 }
 
 export function boardScreenOptions({ route }) {
@@ -17,14 +18,12 @@ export function boardScreenOptions({ route }) {
 
 export function BoardScreen() {
     const route = useRoute();
-    const { board }: RouteParams = route.params;
+    // @ts-ignore
+    const { params }: RouteParams = route;
 
     return (
         <View style={styles.container}>
-            {/* <ButtonAddList boardId={boardId} /> */}
-
-            <ListBoard board={board} />
-
+            <ListBoard board={params.board} />
         </View >
     );
 }
