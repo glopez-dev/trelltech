@@ -3,15 +3,20 @@ import { ScrollView, View, Modal, Button, Text, TouchableOpacity, KeyboardAvoidi
 import { Icon, ThreeDotsIcon } from '@gluestack-ui/themed/build/components/Icons';
 import ButtonDeleteList from './ButtonDeleteList';
 import ButtonUpdateList from './ButtonUpdateList';
+import { useCardListContext } from './Card/CardListContextProvider';
 
-const ModalList = ({ listId, name }) => {
+const ModalList = () => {
+
     const [modalVisible, setModalVisible] = useState(false);
+
+    const { list } = useCardListContext();
 
     return (
         <View>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Icon as={ThreeDotsIcon} m="$2" w="$4" h="$4" color="white" />
+                <Icon as={ThreeDotsIcon} color="$white" style={{ transform: [{ translateY: 2 }] }} />
             </TouchableOpacity>
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -29,13 +34,14 @@ const ModalList = ({ listId, name }) => {
                                     <Text style={{ color: 'blue' }}>Fermer</Text>
                                 </TouchableOpacity>
 
-                                <ButtonDeleteList listId={listId} />
-                                <ButtonUpdateList listId={listId} name={name} />
+                                <ButtonDeleteList listId={list.id} />
+                                <ButtonUpdateList listId={list.id} name={list.name} />
                             </View>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </Modal>
+
         </View>
     );
 };
