@@ -7,6 +7,8 @@ import CardModal from './CardModal';
 type CardModalContextData = {
     setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
     isModalVisible: boolean
+    focusedCard: Card
+    setFocusedCard: React.Dispatch<React.SetStateAction<Card>>
 }
 
 const CardModalContext = React.createContext<CardModalContextData | null>(null);
@@ -30,14 +32,20 @@ export default function ListCard(): JSX.Element {
 
     const listContext = useCardListContext();
     const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [focusedCard, setFocusedCard] = React.useState<Card | null>(null);
 
     type CardElementProps = { item: Card }
 
     const CardElement = ({ item }: CardElementProps): JSX.Element => {
 
+        const handleCardPress = () => {
+            setIsModalVisible(true);
+            setFocusedCard(item);
+        }
+
         return (
             <View>
-                <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+                <TouchableOpacity onPress={handleCardPress}>
                     <Text style={styles.cardItem}>{item.name}</Text>
                 </TouchableOpacity>
                 <CardModal />
@@ -50,7 +58,7 @@ export default function ListCard(): JSX.Element {
 
 
     return (
-        <CardModalContext.Provider value={{ setIsModalVisible, isModalVisible }}>
+        <CardModalContext.Provider value={{ setIsModalVisible, isModalVisible, setFocusedCard, focusedCard }}>
             <FlatList
                 style={{ width: '100%' }}
                 data={listContext.cards}
