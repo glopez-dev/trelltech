@@ -106,7 +106,7 @@ function CardOptionsButton({ style }): JSX.Element {
     return (
         <Entypo
             name='dots-three-horizontal'
-            size={24}
+            size={20}
             style={style}
         />
     );
