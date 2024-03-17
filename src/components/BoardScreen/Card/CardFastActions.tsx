@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import CardMembersModal from './CardMembersModal';
 
 function Container({ children }) {
 
     return (
-        <View style={{ width: '100%', borderTopWidth: 1, borderColor: 'white', backgroundColor: '#48525e', paddingHorizontal: 20 }}>
+        <View style={{ width: '100%', borderTopWidth: 1, borderBottomWidth: 10, borderColor: '#F3F4F6', backgroundColor: 'white', paddingHorizontal: 20, paddingBottom: 10 }}>
             {children}
         </View>
     );
@@ -13,8 +15,40 @@ function Container({ children }) {
 function Header() {
     return (
         <View style={{ paddingVertical: 15 }}>
-            <Text style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>Actions rapides</Text>
+            <Text style={{ color: 'black', fontSize: 16, fontWeight: '500' }}>Actions rapides</Text>
         </View>
+    );
+}
+
+function Body({ children }) {
+    return (
+        <View style={{ paddingVertical: 10, flexDirection: 'row', justifyContent: 'flex-start', gap: 10 }}>
+            {children}
+        </View>
+    );
+}
+
+function Action() {
+
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+    const styles = StyleSheet.create({
+        container: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: '#F3F4F6', borderRadius: 10, width: '50%', padding: 10, gap: 10 },
+        icon: { backgroundColor: '#c084fc', borderRadius: 100, padding: 10, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' },
+        text: { color: 'black', fontSize: 16, fontWeight: '500', alignSelf: 'center' },
+    })
+
+    return (
+        <TouchableOpacity style={styles.container} onPress={() => setIsModalVisible(true)}>
+
+            <View style={styles.icon}>
+                <FontAwesome name="user-o" size={20} color="white" />
+            </View>
+
+            <Text style={styles.text}>Membres</Text>
+
+            <CardMembersModal isVisible={isModalVisible} setIsVisible={setIsModalVisible} />
+        </TouchableOpacity>
     );
 }
 
@@ -25,6 +59,9 @@ export default function CardFastActions(): JSX.Element {
     return (
         <Container>
             <Header />
+            <Body>
+                <Action />
+            </Body>
         </Container>
     );
 
