@@ -5,6 +5,7 @@ import { useCardModalContext } from './ListCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import CardFastActions from './CardFastActions';
 
 
 export default function CardModal(): JSX.Element {
@@ -46,8 +47,8 @@ function ModalContent({ card }: ModalContentProps): JSX.Element {
             </ModalContentHeader>
 
             {/* Content */}
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>This is your full-screen modal content</Text>
+            <SafeAreaView style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <CardFastActions />
             </SafeAreaView>
 
             {/* Footer */}
