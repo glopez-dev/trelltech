@@ -1,18 +1,25 @@
 import React from 'react';
-import { View, Text, FlatList, ListRenderItem } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useCardListContext } from './CardListContextProvider';
 import Card from '@src/api/Card';
+import CardModal from './CardModal';
 
-type CardElementProps = {
-    item: Card
+type CardModalContextData = {
+    setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+    isModalVisible: boolean
+    focusedCard: Card
+    setFocusedCard: React.Dispatch<React.SetStateAction<Card>>
 }
 
-const CardElement: ListRenderItem<Card> = ({ item }: CardElementProps): JSX.Element => (
-    <View>
-        <Text style={{ color: 'white' }}>{item.name}</Text>
-    </View>
-);
+const CardModalContext = React.createContext<CardModalContextData | null>(null);
 
+export const useCardModalContext = () => {
+    const context = React.useContext(CardModalContext);
+    if (!context) {
+        throw new Error('useCardModalContext must be used within a CardModalProvider');
+    }
+    return context;
+}
 
 /**
  * Generates a FlatList style component that displays a list of cards.
@@ -21,19 +28,61 @@ const CardElement: ListRenderItem<Card> = ({ item }: CardElementProps): JSX.Elem
  * 
  * @ATTENTION Depends on the CardListContextProvider to provide access to the list's cards.
  */
-const ListCard = () => {
+export default function ListCard(): JSX.Element {
 
     const listContext = useCardListContext();
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [focusedCard, setFocusedCard] = React.useState<Card | null>(null);
 
+    type CardElementProps = { item: Card }
+
+    const CardElement = ({ item }: CardElementProps): JSX.Element => {
+
+        const handleCardPress = () => {
+            setIsModalVisible(true);
+            setFocusedCard(item);
+        }
+
+        return (
+            <View>
+                <TouchableOpacity onPress={handleCardPress}>
+                    <Text style={styles.cardItem}>{item.name}</Text>
+                </TouchableOpacity>
+                <CardModal />
+            </View >
+        );
+    };
+
+
+    const ItemSeparator = () => <View style={{ height: 10 }} />
 
 
     return (
-        <FlatList
-            data={listContext.cards}
-            renderItem={CardElement}
-            keyExtractor={(item, index) => index.toString()}
-        />
+        <CardModalContext.Provider value={{ setIsModalVisible, isModalVisible, setFocusedCard, focusedCard }}>
+            <FlatList
+                style={{ width: '100%' }}
+                data={listContext.cards}
+                renderItem={CardElement}
+                ItemSeparatorComponent={ItemSeparator}
+                keyExtractor={(item, index) => index.toString()}
+            />
+        </CardModalContext.Provider>
     );
 };
 
-export default ListCard;
+const styles = StyleSheet.create({
+    cardItem: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        padding: 5,
+        backgroundColor: '#1c1c1e',
+        borderWidth: 1,
+        borderColor: '#2c333b',
+        borderRadius: 5,
+        color: 'white',
+        fontSize: 16,
+    }
+})

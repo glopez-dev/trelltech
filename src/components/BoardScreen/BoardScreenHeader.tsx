@@ -12,10 +12,8 @@ export default function BoardScreenHeader({ routeParams }) {
     const navigation = useNavigation();
     const route = useRoute();
 
-
     const boardName = board ? board.name : 'Board name';
     const workspaceName = workspace ? workspace.displayName : 'Workspace name';
-
 
     return (
         <SafeAreaView style={{
