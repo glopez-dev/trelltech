@@ -2,7 +2,7 @@ import { jest, beforeAll, describe, expect, it } from '@jest/globals';
 import Workspace from '@src/api/Workspace';
 import Board from '@src/api/Board';
 import List from '@src/api/List';
-
+import Card from '@src/api/Card';
 
 describe('List class', () => {
 
@@ -36,6 +36,13 @@ describe('List class', () => {
         expect(retrievedList.name).toBe("My Updated List");
         expect(retrievedList.id).toBe(list.id);
     });
+
+    it('should get the list cards', async () => {
+        const card: Card = await Card.create(list.id, "My Card");
+        const cards: Card[] = await List.getCards(list.id);
+        expect(cards.length).toBe(1);
+        expect(cards[0].name).toBe("My Card");
+    })
 
     it('should delete the List', async () => {
         const deleted = await list.delete();

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import HeaderRight from '@src/components/HeaderRight';
+import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
+import ModalList from '@src/components/BoardScreen/ModalList';
 
 /**
  * The function that manages the logic to configure the HomeScreen options.
@@ -13,7 +14,7 @@ import { View, Text } from '@gluestack-ui/themed';
 export function cardScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
+        tabBarIcon: ({ color }) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { backgroundColor: '#2c333b' },
@@ -30,10 +31,16 @@ export function cardScreenOptions({ navigation, route }): object {
 
 
 export function CardScreen() {
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
     return (
-        /* Home screen content goes here */
-        <View>
-            <Text>Card Screen</Text>
-        </View>
+
+        <>
+            <ModalList />
+        </>
     );
 }

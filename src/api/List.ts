@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Board from "@src/api/Board";
+import Card, { CardData } from "@src/api/Card";
 
 interface ListData {
     id: string,
@@ -8,6 +9,10 @@ interface ListData {
 }
 
 export default class List {
+    static getLists: any;
+    static getBoard(boardId: any) {
+        throw new Error('Method not implemented.');
+    }
 
     private static APIKey: string = process.env.EXPO_PUBLIC_API_KEY;
     private static APIToken: string = process.env.EXPO_PUBLIC_API_TOKEN;
@@ -80,6 +85,25 @@ export default class List {
         }
     }
 
+    public static async update(id: string): Promise<void> {
+        const baseURL = List.baseURL;
+
+        const queryParams: string = new URLSearchParams({
+            key: List.APIKey,
+            token: List.APIToken,
+            name: this.name
+        }).toString();
+
+        const url = `${baseURL}/${id}?${queryParams}`;
+
+        try {
+            const response = await axios.put(url);
+        } catch (error) {
+            console.error("Error updating list:", error);
+            return null;
+        }
+    }
+
     /**
      * Retrieves a list by its ID using the Trello API.
      *
@@ -124,6 +148,60 @@ export default class List {
         } catch (error) {
             console.error("Error deleting list:", error);
             return false;
+        }
+    }
+
+    public static async delete(id: string): Promise<boolean> {
+
+        const baseURL = List.baseURL;
+        const queryParams: string = new URLSearchParams({
+            key: List.APIKey,
+            token: List.APIToken,
+            closed: "true",
+        }).toString();
+
+        const url = `${baseURL}/${id}?${queryParams}`;
+
+        try {
+            const response = await axios.put(url);
+            return true;
+        } catch (error) {
+            console.error("Error deleting list:", error);
+            return false;
+        }
+    }
+
+
+    public async getCards(): Promise<Card[]> {
+        const listId = this.id;
+        const baseURL = List.baseURL;
+        const key = List.APIKey;
+        const token = List.APIToken;
+        const url = `${baseURL}/${listId}/cards?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get(url);
+            const cardDataList: CardData[] = response.data;
+            return cardDataList.map((cardData: CardData) => new Card(cardData));
+        } catch (error) {
+            console.error("Error fetching cards:", error.message);
+            throw error;
+        }
+    }
+
+    public static async getCards(listId: string): Promise<Card[]> {
+        const baseURL = List.baseURL;
+        const key = List.APIKey;
+        const token = List.APIToken;
+        const url = `${baseURL}/${listId}/cards?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get(url);
+            const cardDataList: CardData[] = response.data;
+            return cardDataList.map((cardData: CardData) => new Card(cardData));
+        } catch (error) {
+            console.error("Error fetching cards:", error.message);
+            throw error;
         }
     }
 

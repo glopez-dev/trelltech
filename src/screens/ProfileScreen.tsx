@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import HeaderRight from '@src/components/HeaderRight';
+import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 import { View, Text } from '@gluestack-ui/themed';
 
 /**
@@ -13,7 +13,7 @@ import { View, Text } from '@gluestack-ui/themed';
 export function profileScreenOptions({ navigation, route }): object {
 
     return {
-        tabBarIcon: ({ color, size}) => <FontAwesome name="user-circle-o" size={22} color={color} />,
+        tabBarIcon: ({ color, size }) => <FontAwesome name="user-circle-o" size={22} color={color} />,
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { backgroundColor: '#2c333b' },

@@ -1,41 +1,39 @@
 import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
-import ModalBoard from '@src/components/Home/ModalBoard';
+//import { WorkspaceModalAdd } from '@src/components/HomeScreen';
+import WorkspaceModalAdd from './WorkspaceModalAdd';
 
 
-
-const ButtonAdd = ({ workspaceId }) => {
+export default function HeaderRight(): JSX.Element {
 
     const [isModalVisible, setIsModalVisible] = React.useState(false);
 
     const handleButtonClick = () => {
         setIsModalVisible(true);
-        console.log(workspaceId);
     };
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
-
     };
+
+
     return (
         <>
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ marginBottom: 9, alignItems: 'center', justifyContent: 'center' }}>
                 <Button
                     size="sm"
                     variant="solid"
                     action="primary"
                     disabled={isModalVisible}
                     isFocusVisible={false}
-                    bg="#000000"
+                    bg="#2c333b"
                     opacity={isModalVisible ? -1.5 : 1}
                     onPress={handleButtonClick}
                 >
                     <ButtonIcon as={AddIcon} size="xl" />
                 </Button>
-            </View >
-            <ModalBoard isVisible={isModalVisible} onClose={handleCloseModal} workspaceId={workspaceId} />
+            </View>
+            <WorkspaceModalAdd isVisible={isModalVisible} onClose={handleCloseModal} />
         </>
-    );
-};
-
-export default ButtonAdd;
+    )
+}

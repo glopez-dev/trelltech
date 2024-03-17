@@ -18,6 +18,7 @@ export default class Board implements BoardData {
     private static APIToken: string = process.env.EXPO_PUBLIC_API_TOKEN;
     private static baseURL: string = "https://api.trello.com/1/";
 
+
     /* Mandatory */
     id: string
     name: string
@@ -102,11 +103,42 @@ export default class Board implements BoardData {
         }
     }
 
+
+    public static async getLists(id: string): Promise<List[]> {
+        const baseURL = Board.baseURL;
+        const key = Board.APIKey;
+        const token = Board.APIToken;
+
+        const url = `${baseURL}boards/${id}/lists?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.get<List[]>(url);
+            return response.data;
+        } catch (error) {
+            console.error("Error getting lists:", error.message);
+            return [];
+        }
+    }
+
     public async delete(): Promise<boolean> {
         const baseURL = Board.baseURL;
         const key = Board.APIKey;
         const token = Board.APIToken;
         const url = `${baseURL}boards/${this.id}?key=${key}&token=${token}`;
+
+        try {
+            const response = await axios.delete(url);
+            return true;
+        } catch (error) {
+            console.error("Error deleting board:", error.message);
+            return false;
+        }
+    }
+    public static async delete(boardId: string): Promise<boolean> {
+        const baseURL = Board.baseURL;
+        const key = Board.APIKey;
+        const token = Board.APIToken;
+        const url = `${baseURL}boards/${boardId}?key=${key}&token=${token}`;
 
         try {
             const response = await axios.delete(url);
