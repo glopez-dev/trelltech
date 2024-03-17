@@ -8,6 +8,7 @@ import ButtonDeleteBoard from '@src/components/HomeScreen/ButtonDeleteBoard';
 import ModalDeleteWorkspace from '@src/components/HomeScreen/ModalDeleteWorkspace';
 import { useNavigation } from '@react-navigation/native';
 import ModalWorkspaceUpdate from './ModalWorkspaceUpdate';
+import BoardModalUpdate from './BoardModalUpdate';
 
 export const ListHome = () => {
     const [workspaces, setWorkspaces] = React.useState([]);
@@ -113,6 +114,7 @@ export const ListHome = () => {
                             <Pressable style={styles.boxItem} onPress={() => handlePress(item)}>
                                 <Text style={styles.item}>{item.name}</Text>
                                 <ButtonDeleteBoard BoardId={item.id} />
+                                <BoardModalUpdate visible={showModal} onClose={() => setShowModal(false)} board={item.id} />
                             </Pressable>
                         }
                     />
