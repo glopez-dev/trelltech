@@ -38,9 +38,6 @@ export function CardScreen() {
         setModalVisible(!modalVisible);
     };
     return (
-
-        <>
-            <ModalList />
-        </>
+        <Text>Card Screen</Text>
     );
 }
