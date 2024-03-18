@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { useCardModalContext } from './ListCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -45,7 +45,7 @@ function ModalContent({ card }: ModalContentProps): JSX.Element {
 
             <ModalContentHeader>
                 <CloseModalButton />
-                <Text style={{ color: 'black', fontSize: 20, padding: 15 }}>{card.name}</Text>
+                <CardTitle />
             </ModalContentHeader>
 
             {/* Content */}
@@ -98,6 +98,24 @@ function ModalContentHeader({ children }): JSX.Element {
             <CardOptionsButton style={{ paddingRight: 15, color: 'black' }} />
         </SafeAreaView>
     );
+}
+
+function CardTitle(): JSX.Element {
+
+    const { focusedCard } = useCardModalContext();
+    const [name, setName] = React.useState(focusedCard.name);
+
+    const updateCardName = async () => {
+        if (focusedCard) {
+            focusedCard.name = name;
+            await focusedCard.save();
+        }
+    }
+
+    return (
+        <TextInput style={{ color: 'black', fontSize: 20, padding: 15 }} value={name} onChangeText={setName} onEndEditing={updateCardName} />
+    )
+
 }
 
 
