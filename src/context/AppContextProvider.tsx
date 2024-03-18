@@ -4,7 +4,7 @@ import Workspace from "@src/api/Workspace";
 type AppContextData = {
     workspaces: Workspace[],
     setWorkspaces: React.Dispatch<React.SetStateAction<Workspace[]>>,
-    addWorkspace: (workspace: Workspace) => Promise<boolean>,
+    addWorkspace: (displayName: string) => Promise<boolean>,
     deleteWorkspace: (deletedWorkspace: Workspace) => Promise<boolean>,
     reload: boolean,
     triggerReload: () => void

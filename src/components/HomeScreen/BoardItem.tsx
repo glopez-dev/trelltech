@@ -13,7 +13,7 @@ export default function BoardItem({ item }: { item: Board }) {
 
     const navigateToBoardScreen = (board: Board) => {
         /* @ts-ignore */
-        navigate('BoardScreen', { board: board, workspace: context.workspace });
+        navigate('BoardScreen', { board: board, workspace: context.workspace, triggerReload: context.triggerReload });
     }
 
     const styles = StyleSheet.create({
