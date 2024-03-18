@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import CardFastActions from './CardFastActions';
+import Card from '@src/api/Card';
 
 
 export default function CardModal(): JSX.Element {

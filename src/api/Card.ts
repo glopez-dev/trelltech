@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Member, { MemberData } from './Member';
 
 export interface CardData {
     idList: string
@@ -132,6 +133,53 @@ export default class Card implements CardData {
             console.error("Trello API error:", error);
             return false;
         }
+    }
+
+    public async getMembers(): Promise<Member[]> {
+        const id = this.id;
+        const baseURL = Card.baseURL;
+        const key = Card.APIKey;
+        const token = Card.APIToken;
+        const url = `${baseURL}/${id}/members?key=${key}&token=${token}`;
+
+        try {
+            const { data } = await axios.get(url);
+            const members: Member[] = data.map((memberData: MemberData) => new Member(memberData));
+            return members;
+
+        } catch (error) {
+            console.error("Error getting card members:", error.message);
+            return null;
+        }
+    }
+
+    public async addMember(member: Member): Promise<boolean> {
+        const apiKey = Card.APIKey;
+        const apiToken = Card.APIToken;
+        const url = `${Card.baseURL}/${this.id}/idMembers?value=${member.id}&key=${apiKey}&token=${apiToken}`;
+
+        try {
+            const { status } = await axios.put(url);
+            console.log(`[Card: addMember] status: ${status}`);
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    public async removeMember(member: Member): Promise<boolean> {
+        const apiKey = Card.APIKey;
+        const apiToken = Card.APIToken;
+        const url = `${Card.baseURL}/${this.id}/idMembers/${member.id}?key=${apiKey}&token=${apiToken}`;
+
+        try {
+            const { status } = await axios.delete(url);
+            console.log(`[Card: removeMember] status: ${status}`);
+            return status === 200;
+        } catch {
+            return false;
+        }
+
     }
 
 }
