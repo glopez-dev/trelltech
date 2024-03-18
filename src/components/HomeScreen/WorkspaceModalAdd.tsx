@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import { Modal, View, Button, Text, TextInput, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { useAppContext } from '@src/context/AppContextProvider';
 
 interface WorkspaceModalAddProps {
@@ -30,20 +30,24 @@ export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.El
             transparent={true}
             visible={props.isVisible}
         >
-            <View style={styles.modal}>
-                <View style={styles.modalContent}>
-                    <View style={styles.modalHeader}>
-                        <Button title="Fermer" onPress={props.onClose} />
-                    </View>
-                    <View style={styles.modalBody}>
-                        <Text style={styles.modalBodyText}>Nom de votre Workspace</Text>
-                        <View style={styles.modalBodyInput}>
-                            <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre Workspace" value={name} onChangeText={handleNameChange} />
-                            <Button title="Add" onPress={add} />
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                    <View style={styles.modal}>
+                        <View style={styles.modalContent}>
+                            <View style={styles.modalHeader}>
+                                <Button title="Fermer" onPress={props.onClose} />
+                            </View>
+                            <View style={styles.modalBody}>
+                                <Text style={styles.modalBodyText}>Nom de votre Workspace</Text>
+                                <View style={styles.modalBodyInput}>
+                                    <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre Workspace" value={name} onChangeText={handleNameChange} />
+                                    <Button title="Add" onPress={add} />
+                                </View>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };
@@ -57,38 +61,40 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         backgroundColor: 'white',
-        height: '89%',
+        height: '33%',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        overflow: 'hidden',
     },
     modalHeader: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        backgroundColor: '#000000',
+        backgroundColor: '#f3f2f8',
+        padding: 5,
     },
     modalBody: {
-        height: '100%',
-        backgroundColor: '#000000',
-        gap: 10,
+        backgroundColor: '#f3f2f8',
+        flex: 1,
+        padding: 10,
     },
     modalBodyText: {
         fontSize: 20,
-        marginLeft: 10,
-        color: 'white',
+        color: '#172b4c',
+        marginBottom: 10,
     },
     modalBodyInput: {
-        marginTop: 10,
-        marginBottom: 10,
-        margin: 10,
-        padding: 10,
-        backgroundColor: '#1c1c1e',
-        borderRadius: 5,
         flexDirection: 'row',
         alignItems: 'center',
+        borderWidth: 1,
+
+        borderRadius: 5,
+        padding: 10,
+
     },
     modalBodyInputText: {
+        color: '#172b4c',
         flex: 1,
-        color: 'white',
     },
-    modalBodyInputButton: {},
 });
 
 
