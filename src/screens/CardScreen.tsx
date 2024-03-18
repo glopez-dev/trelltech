@@ -32,11 +32,6 @@ export function cardScreenOptions({ navigation, route }): object {
 
 export function CardScreen() {
 
-    const [modalVisible, setModalVisible] = React.useState(false);
-
-    const toggleModal = () => {
-        setModalVisible(!modalVisible);
-    };
     return (
         <Text>Card Screen</Text>
     );

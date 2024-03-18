@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import Workspace from '@src/api/Workspace';
 import WorkspaceModalDelete from './WorkspaceModalDelete';
 import WorkspaceModalUpdate from './WorkspaceModalUpdate';
 import { BoardButtonAdd } from './BoardButtonAdd';
+import { useAppContext } from '@src/context/AppContextProvider';
 
 export default function BoardListHeader({ workspace }: { workspace: Workspace }) {
 
@@ -41,7 +42,7 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
                     onPressOut={handlePressOut}
                     activeOpacity={-1.6}
                 >
-                    <Text style={{ color: modalVisible ? '#a4262a' : '#172b4c', fontSize: 16, fontWeight: 'bold' }}>{workspace.displayName}</Text>
+                    <WorkspaceTitle workspace={workspace} modalVisible={modalVisible} />
                 </TouchableOpacity>
 
                 <WorkspaceModalDelete isVisible={modalVisible} setIsVisible={setModalVisible} workspace={workspace} />
@@ -51,5 +52,34 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
             </View>
         </View>
 
+    );
+}
+
+function WorkspaceTitle({ workspace, modalVisible }: { workspace: Workspace, modalVisible: boolean }) {
+
+    const [name, setName] = React.useState(workspace.displayName);
+    const { triggerReload } = useAppContext();
+
+    const updateName = async () => {
+        if (workspace) {
+            workspace.displayName = name;
+            await workspace.update();
+            triggerReload();
+        }
+    };
+
+    return (
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <TextInput
+                style={{
+                    color: modalVisible ? '#a4262a' : '#172b4c',
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                }}
+                value={name}
+                onChangeText={text => setName(text)}
+                onEndEditing={updateName}
+            />
+        </View>
     );
 }
