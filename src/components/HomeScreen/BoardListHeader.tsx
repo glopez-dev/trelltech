@@ -34,23 +34,25 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
 
 
     return (
-        <View>
+        <TouchableOpacity
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            activeOpacity={0.5}
+        >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
 
-                <TouchableOpacity
-                    style={{ alignItems: 'center', padding: 9, marginTop: 10, }} onPressIn={handlePressIn}
-                    onPressOut={handlePressOut}
-                    activeOpacity={-1.6}
+                <View
+                    style={{ alignItems: 'center', padding: 9, marginTop: 10, }}
                 >
                     <WorkspaceTitle workspace={workspace} modalVisible={modalVisible} />
-                </TouchableOpacity>
+                </View>
 
                 <WorkspaceModalDelete isVisible={modalVisible} setIsVisible={setModalVisible} workspace={workspace} />
                 <WorkspaceModalUpdate visible={showModal} onClose={() => setShowModal(false)} workspace={workspace} />
 
                 <BoardButtonAdd workspace={workspace} />
             </View>
-        </View>
+        </TouchableOpacity>
 
     );
 }
