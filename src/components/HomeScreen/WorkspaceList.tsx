@@ -7,8 +7,8 @@ import { useAppContext } from '@src/context/AppContextProvider';
 import { BoardListContextProvider } from './BoardListContext';
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#000000' },
-    staticTitle: { fontSize: 20, fontWeight: 'bold', color: '#a0adbd', marginTop: 10, padding: 5 },
+    container: { flex: 1, backgroundColor: '#f3f2f8', },
+    staticTitle: { fontSize: 16, fontWeight: 'bold', color: '#44546e', marginTop: 10, padding: 5 },
 });
 
 /**
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 function WorkspaceListHeader(): JSX.Element {
     return (
         <View style={styles.container}>
-            <Text style={styles.staticTitle}>Vos espaces de travail</Text>
+            <Text style={styles.staticTitle}>VOS ESPACES DE TRAVAIL</Text>
         </View>
     );
 }

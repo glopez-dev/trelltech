@@ -26,7 +26,7 @@ export default function HeaderRight(): JSX.Element {
                     action="primary"
                     disabled={isModalVisible}
                     isFocusVisible={false}
-                    bg="#2c333b"
+                    bg="#0c65e3"
                     opacity={isModalVisible ? -1.5 : 1}
                     onPress={handleButtonClick}
                 >

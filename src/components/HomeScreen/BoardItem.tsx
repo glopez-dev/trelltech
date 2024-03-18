@@ -17,12 +17,12 @@ export default function BoardItem({ item }: { item: Board }) {
     }
 
     const styles = StyleSheet.create({
-        item: { padding: 15, backgroundColor: '#1c1c1e', color: 'white', flex: 1 },
+        item: { padding: 15, backgroundColor: '#ffffff', color: '#172b4c', flex: 1, },
         itemBox: {
             flexDirection: 'row',
             justifyContent: 'space-between',
             backgroundColor: '#1c1c1e',
-            borderWidth: 1,
+            borderTopWidth: 0.5,
             borderColor: '#2c333b',
         },
     });
@@ -33,7 +33,7 @@ export default function BoardItem({ item }: { item: Board }) {
             onPress={() => navigateToBoardScreen(item)}
         >
             <Text style={styles.item}>{item.name}</Text>
-            <BoardButtonDelete board={item} />
+            {/* <BoardButtonDelete board={item} /> */}
         </Pressable>
     );
 

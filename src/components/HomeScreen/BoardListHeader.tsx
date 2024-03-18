@@ -42,7 +42,7 @@ export default function BoardListHeader({ workspace }: { workspace: Workspace })
                     onPressOut={handlePressOut}
                     activeOpacity={-1.6}
                 >
-                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>{workspace.displayName}</Text>
+                    <Text style={{ color: '#172b4c', fontSize: 16, fontWeight: 'bold' }}>{workspace.displayName}</Text>
                 </TouchableOpacity>
 
                 <WorkspaceModalDelete visible={modalVisible} onClose={closeModal} workspace={workspace} />

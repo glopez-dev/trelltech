@@ -3,7 +3,7 @@ import WorkspaceList from '@src/components/HomeScreen/WorkspaceList';
 import HeaderRight from '@src/components/HomeScreen/HeaderRight';
 
 export const homeScreenOptions = {
-    headerStyle: { backgroundColor: '#2c333b' },
+    headerStyle: { backgroundColor: '#0c65e3' },
     headerTintColor: 'white',
     headerTitleStyle: { fontWeight: 'bold', fontSize: 25 },
     headerTitleAlign: 'center',

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, AddIcon, ButtonIcon, View, Text } from "@gluestack-ui/themed";
 import BoardModalCreate from './BoardModalCreate';
 import Workspace from '@src/api/Workspace';
+import { TouchableOpacity } from 'react-native';
 
 
 export const BoardButtonAdd = ({ workspace }: { workspace: Workspace }) => {
@@ -19,18 +20,14 @@ export const BoardButtonAdd = ({ workspace }: { workspace: Workspace }) => {
     return (
         <>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Button
-                    size="sm"
-                    variant="solid"
-                    action="primary"
+                <TouchableOpacity
+                    style={{ paddingRight: 15 }}
                     disabled={isModalVisible}
-                    isFocusVisible={false}
-                    bg="#000000"
                     opacity={isModalVisible ? -1.5 : 1}
                     onPress={handleButtonClick}
                 >
                     <ButtonIcon as={AddIcon} size="xl" />
-                </Button>
+                </TouchableOpacity>
             </View >
             <BoardModalCreate isVisible={isModalVisible} onClose={handleCloseModal} workspace={workspace} />
         </>
