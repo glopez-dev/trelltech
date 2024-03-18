@@ -36,6 +36,7 @@ export function BoardListContextProvider({ children, workspace }: BoardListConte
 
     const triggerReload = () => {
         setReload(!reload);
+        console.log("reload triggered");
     }
 
     const initWorkspaceBoards = async (workspace: Workspace): Promise<void> => {
