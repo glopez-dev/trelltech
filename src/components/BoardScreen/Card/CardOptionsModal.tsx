@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { Ionicons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import CardModalDelete from './CardModalDelete';
 
 type CardOptionsModalProps = { isVisible: boolean, setIsVisible: React.Dispatch<React.SetStateAction<boolean>> }
 
@@ -45,7 +46,7 @@ export default function CardOptionsModal({ isVisible, setIsVisible }: Readonly<C
         >
             <View style={styles.modalContent}>
                 <ArchivateCard />
-                <DeleteCard />
+                <DeleteCard setOptionsVisible={setIsVisible} />
             </View>
         </Modal>
     );
@@ -77,7 +78,11 @@ function ArchivateCard() {
     );
 }
 
-function DeleteCard() {
+type CardModalDeleteProps = { setOptionsVisible: React.Dispatch<React.SetStateAction<boolean>> }
+
+function DeleteCard({ setOptionsVisible }: Readonly<CardModalDeleteProps>) {
+
+    const [isVisible, setIsVisible] = React.useState(false);
 
     const styles = StyleSheet.create({
         container: {
@@ -94,10 +99,15 @@ function DeleteCard() {
         }
     })
 
+    const handlePress = () => {
+        setIsVisible(true);
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={handlePress}>
             <Text style={styles.text}>Supprimer la carte</Text>
             <Ionicons name="trash-outline" size={20} color="#DC2626" />
-        </View>
+            <CardModalDelete isVisible={isVisible} setIsVisible={setIsVisible} />
+        </TouchableOpacity>
     );
 }
