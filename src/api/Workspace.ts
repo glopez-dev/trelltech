@@ -153,9 +153,9 @@ export default class Workspace implements WorkspaceData {
     /**
      * Retrieves the members of the workspace from the API.
      *
-     * @return {Promise<Record<string, Member>>} A promise that resolves to a record of members
+     * @return {Promise<Member[]>} A promise that resolves to an array of members
      */
-    public async getMembers(): Promise<Record<string, Member>> {
+    public async getMembers(): Promise<Member[]> {
         const id = this.id;
         const baseURL = Workspace.baseURL;
         const key = Workspace.APIKey;
@@ -163,13 +163,10 @@ export default class Workspace implements WorkspaceData {
         const url = `${baseURL}/${id}/members?key=${key}&token=${token}`;
 
         try {
-            const response = await axios.get(url);
-            const members: Record<string, Member> = {};
+            const { data }: { data: MemberData[] } = await axios.get(url);
+            console.log(data);
 
-            response.data.map((memberData: MemberData) => {
-                const member = new Member(memberData);
-                members[member.id] = member;
-            });
+            const members: Member[] = data.map((memberData: MemberData) => new Member(memberData));
 
             return members;
         } catch (error) {
@@ -177,8 +174,6 @@ export default class Workspace implements WorkspaceData {
             return null;
         }
     }
-
-
 
 
     async getBoards(): Promise<Board[]> {

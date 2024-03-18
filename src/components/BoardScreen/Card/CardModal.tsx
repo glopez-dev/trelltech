@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity, StyleProp, TextStyle } from 'react-native';
+import { View, Text, Button, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { useCardModalContext } from './ListCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import CardFastActions from './CardFastActions';
+import Card from '@src/api/Card';
+import CardOptionsModal from './CardOptionsModal';
 
 
 export default function CardModal(): JSX.Element {
@@ -42,12 +45,14 @@ function ModalContent({ card }: ModalContentProps): JSX.Element {
 
             <ModalContentHeader>
                 <CloseModalButton />
-                <Text style={{ color: 'white', fontSize: 20, padding: 15 }}>{card.name}</Text>
+                <CardTitle />
             </ModalContentHeader>
 
             {/* Content */}
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>This is your full-screen modal content</Text>
+            <SafeAreaView style={{ flex: 1 }}>
+                <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+                    <CardFastActions />
+                </ScrollView>
             </SafeAreaView>
 
             {/* Footer */}
@@ -73,9 +78,16 @@ function ModalContentHeader({ children }): JSX.Element {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: '#2c333b',
+            backgroundColor: '#f0f2f3',
             paddingTop: 40,
-            paddingBottom: 5
+            paddingBottom: 0,
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.08,
+            shadowRadius: 2,
         }}
             edges={['top', 'left', 'right']}
         >
@@ -83,10 +95,29 @@ function ModalContentHeader({ children }): JSX.Element {
                 {children}
             </View>
 
-            <CardOptionsButton style={{ paddingRight: 15, color: 'white' }} />
+            <CardOptionsButton style={{ paddingRight: 15, color: 'black' }} />
         </SafeAreaView>
     );
 }
+
+function CardTitle(): JSX.Element {
+
+    const { focusedCard } = useCardModalContext();
+    const [name, setName] = React.useState(focusedCard.name);
+
+    const updateCardName = async () => {
+        if (focusedCard) {
+            focusedCard.name = name;
+            await focusedCard.save();
+        }
+    }
+
+    return (
+        <TextInput style={{ color: 'black', fontSize: 20, padding: 15 }} value={name} onChangeText={setName} onEndEditing={updateCardName} />
+    )
+
+}
+
 
 function CloseModalButton(): JSX.Element {
 
@@ -96,19 +127,24 @@ function CloseModalButton(): JSX.Element {
         <AntDesign
             name="close"
             size={24}
-            style={{ paddingLeft: 15, paddingRight: '20px', color: 'white' }}
+            style={{ paddingLeft: 15, paddingRight: 10, color: 'black' }}
             onPress={() => setIsModalVisible(false)}
         />
     );
 }
 
 function CardOptionsButton({ style }): JSX.Element {
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+
     return (
-        <Entypo
-            name='dots-three-horizontal'
-            size={20}
-            style={style}
-        />
+        <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+            <Entypo
+                name='dots-three-horizontal'
+                size={20}
+                style={style}
+            />
+            <CardOptionsModal isVisible={isModalVisible} setIsVisible={setIsModalVisible} />
+        </TouchableOpacity>
     );
 }
 
