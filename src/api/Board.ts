@@ -128,7 +128,7 @@ export default class Board implements BoardData {
 
         try {
             const response = await axios.delete(url);
-            return true;
+            return response.status === 200;
         } catch (error) {
             console.error("Error deleting board:", error.message);
             return false;

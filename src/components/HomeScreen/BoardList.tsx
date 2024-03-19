@@ -6,7 +6,7 @@ import BoardListHeader from './BoardListHeader';
 import BoardItem from './BoardItem';
 import { ListRenderItemInfo } from 'react-native';
 import { useBoardListContext, BoardListContextData } from './BoardListContext';
-
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * A list of boards for a workspace.
@@ -18,12 +18,21 @@ import { useBoardListContext, BoardListContextData } from './BoardListContext';
 export default function BoardList(props: { workspace: Workspace }): JSX.Element {
 
     const context: BoardListContextData = useBoardListContext();
+    const navigation = useNavigation();
 
     React.useEffect(() => {
 
         context.initWorkspaceBoards(props.workspace);
 
-    }, [props.workspace, context.reload]);
+    }, [props.workspace]);
+
+
+    React.useEffect(() => {
+        navigation.addListener('focus', () => {
+            context.initWorkspaceBoards(props.workspace);
+        });
+    });
+
 
     return (
         <FlatList

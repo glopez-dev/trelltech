@@ -1,19 +1,30 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
-import { useCardListContext } from './CardListContextProvider';
-import { useCardModalContext } from './ListCard';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import Board from '@src/api/Board';
 
-type CardModalDeleteProps = { isVisible: boolean, setIsVisible: React.Dispatch<React.SetStateAction<boolean>> }
+type BoardModalDeleteProps = {
+    isVisible: boolean,
+    setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function CardModalDelete({ isVisible, setIsVisible }: Readonly<CardModalDeleteProps>): JSX.Element {
+export default function BoardModalDelete({ isVisible, setIsVisible }: Readonly<BoardModalDeleteProps>): JSX.Element {
 
-    const { deleteCard } = useCardListContext();
-    const { focusedCard, setIsModalVisible } = useCardModalContext();
+    // TODO : Supprimer le tableau
+    const route = useRoute();
+    const navigation = useNavigation();
+    // @ts-ignore
+    const board: Board = route.params?.board;
 
-    const handlePressDelete = () => {
-        deleteCard(focusedCard);
-        setIsVisible(false);
-        setIsModalVisible(false);
+    const handlePressDelete = async () => {
+
+        console.log("Board to delete", board.id);
+        const success: boolean = await Board.delete(board.id);
+
+        if (success) {
+            setIsVisible(false);
+            navigation.goBack();
+        }
     }
 
     const styles = StyleSheet.create({
@@ -116,4 +127,3 @@ export default function CardModalDelete({ isVisible, setIsVisible }: Readonly<Ca
         </Modal >
     );
 }
-
