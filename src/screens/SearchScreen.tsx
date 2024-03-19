@@ -15,9 +15,9 @@ export function searchScreenOptions({ navigation, route }): object {
 
     return {
         tabBarIcon: ({ color, size }) => <FontAwesome5 name="search" size={20} color={color} />,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#0c65e3',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
+
         tabBarLabel: 'Recherchez',
         /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },

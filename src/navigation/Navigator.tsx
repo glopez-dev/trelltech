@@ -12,7 +12,7 @@ export default function Navigator() {
 
     return (
         <SafeAreaProvider>
-            <NavigationContainer>
+            <NavigationContainer  >
                 <TabNavigator />
             </NavigationContainer>
         </SafeAreaProvider>
