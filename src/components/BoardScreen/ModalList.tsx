@@ -14,7 +14,7 @@ const ModalList = () => {
     return (
         <View>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Icon as={ThreeDotsIcon} color="$white" style={{ transform: [{ translateY: 2 }] }} />
+                <Icon as={ThreeDotsIcon} color="$black" style={{ transform: [{ translateY: 2 }] }} />
             </TouchableOpacity>
 
             <Modal

@@ -15,8 +15,9 @@ export default function ListCardFooter(): JSX.Element {
     const listCardFooterStyles = StyleSheet.create({
         container: {
             justifyContent: 'flex-start',
-            marginTop: 20,
+            marginTop: 25,
             width: '100%',
+
         }
     });
 
@@ -53,11 +54,11 @@ function ToggleInputFieldButton({ inputIsVisible, setInputIsVisible }: Readonly<
 
     const styles = StyleSheet.create({
         button: {
-            backgroundColor: '#000000',
+
             borderRadius: 0,
             width: '50%',
         },
-        buttonText: { color: 'white', fontSize: 15 },
+        buttonText: { color: 'black', fontSize: 15 },
         inputWrapper: {
             width: '100%',
         }
@@ -109,7 +110,7 @@ function InputField({ setInputIsVisible }: Readonly<InputFieldProps>): JSX.Eleme
             borderWidth: 1,
             padding: 10,
             marginBottom: 10,
-            color: 'white',
+            color: 'black',
             width: '100%',
         },
         buttonContainer: {

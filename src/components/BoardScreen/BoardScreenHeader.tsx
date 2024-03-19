@@ -21,7 +21,7 @@ export default function BoardScreenHeader({ routeParams }) {
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor: '#2c333b',
+            backgroundColor: '#0d4f72',
             paddingTop: 0,
             paddingBottom: 5
         }}

@@ -45,7 +45,7 @@ export default function ListCard(): JSX.Element {
 
         return (
             <View>
-                <TouchableOpacity onPress={handleCardPress}>
+                <TouchableOpacity onPress={handleCardPress} style={styles.btn}>
                     <Text style={styles.cardItem}>{item.name}</Text>
                 </TouchableOpacity>
                 <CardModal />
@@ -60,7 +60,7 @@ export default function ListCard(): JSX.Element {
     return (
         <CardModalContext.Provider value={{ setIsModalVisible, isModalVisible, setFocusedCard, focusedCard }}>
             <FlatList
-                style={{ width: '100%' }}
+                style={{ width: '100%', paddingBottom: 5 }}
                 data={listContext.cards}
                 renderItem={CardElement}
                 ItemSeparatorComponent={ItemSeparator}
@@ -78,11 +78,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         padding: 5,
-        backgroundColor: '#1c1c1e',
-        borderWidth: 1,
-        borderColor: '#2c333b',
-        borderRadius: 5,
-        color: 'white',
+        color: 'black',
         fontSize: 16,
+        opacity: 0.8
+    },
+
+    btn: {
+
+        flex: 1,
+        backgroundColor: 'white',
+        elevation: 5, // Ajustez la valeur de l'élévation selon vos besoins (pour Android)
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        borderRadius: 3,
+
+
+
     }
 })

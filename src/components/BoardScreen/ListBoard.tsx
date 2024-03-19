@@ -100,12 +100,14 @@ function ListContainer({ children }): JSX.Element {
     const styles = StyleSheet.create({
         container1: {
             flexDirection: 'column',
-            backgroundColor: 'black',
+            color: 'white',
+            backgroundColor: '#f3f2f8',
             justifyContent: 'space-between',
             width: '90%',
             paddingHorizontal: 20,
             paddingVertical: 10,
             borderRadius: 5,
+
         },
     })
     return (
@@ -119,7 +121,7 @@ function ListContainer({ children }): JSX.Element {
 function ListHeader({ children }): JSX.Element {
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, }}>
-            <Text style={{ fontSize: 19, color: 'white' }}>
+            <Text style={{ fontSize: 19, color: 'black' }}>
                 {children}
             </Text>
             <ModalList />
@@ -136,6 +138,7 @@ function ListContent({ children }): JSX.Element {
             width: '100%',
             gap: 15,
             overflow: 'visible',
+
         }
     });
 
