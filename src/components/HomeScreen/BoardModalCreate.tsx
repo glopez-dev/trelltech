@@ -23,11 +23,12 @@ export default function BoardModalCreate(props: BoardModalCreateProps): JSX.Elem
 
     const add = async () => {
 
+
         if (name === '') {
             return;
         }
 
-        const success: boolean = await context.addBoard(name, props.workspace);
+        const success: boolean = await context.addBoard(name, props.workspace, template);
 
         if (!success) {
             return;

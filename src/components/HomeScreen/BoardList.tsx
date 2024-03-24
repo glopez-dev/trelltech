@@ -23,6 +23,7 @@ export default function BoardList(props: { workspace: Workspace }): JSX.Element 
     React.useEffect(() => {
 
         context.initWorkspaceBoards(props.workspace);
+        console.log("Workspace boards:", context.workspaceBoards);
 
     }, [props.workspace]);
 

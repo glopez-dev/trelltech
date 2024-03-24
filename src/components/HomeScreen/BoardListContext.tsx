@@ -9,7 +9,7 @@ export interface BoardListContextData {
     initWorkspaceBoards: (workspace: Workspace) => Promise<void>;
     reload: boolean;
     triggerReload: () => void;
-    addBoard: (name: string, workspace: Workspace) => Promise<boolean>;
+    addBoard: (name: string, workspace: Workspace, template: string) => Promise<boolean>;
     deleteBoard: (deletedBoard: Board) => Promise<boolean>;
 }
 
@@ -44,8 +44,18 @@ export function BoardListContextProvider({ children, workspace }: BoardListConte
         setWorkspaceBoards(boards);
     }
 
-    const addBoard = async (name: string, workspace: Workspace): Promise<boolean> => {
-        const newBoard: Board = await Board.create(name, workspace.id);
+    const addBoard = async (name: string, workspace: Workspace, template: string): Promise<boolean> => {
+
+        const templateBoardId = {
+            'conduite de projet': '66006e1d4a7b4098f5950c0c',
+            'modele kanban': '66006e070825eb156a4cf639',
+            'tableau agile': '66006e314191ad49d73cc7ca',
+            'tableau simple': '66006df00cdf1787ba76738a'
+        }
+
+        const boardIdSource = templateBoardId[template];
+
+        const newBoard: Board = await Board.create(name, workspace.id, boardIdSource);
 
         if (!newBoard) {
             return false;

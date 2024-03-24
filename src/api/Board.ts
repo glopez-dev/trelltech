@@ -35,7 +35,7 @@ export default class Board implements BoardData {
     lists: Record<string, List>
 
 
-    public static async create(name: string, idOrganization: string): Promise<Board> {
+    public static async create(name: string, idOrganization: string, idBoardSource?: string): Promise<Board> {
         const baseURL = Board.baseURL;
 
         const queryParams: string = new URLSearchParams({
@@ -45,7 +45,7 @@ export default class Board implements BoardData {
             idOrganization: idOrganization,
         }).toString();
 
-        const url = `${baseURL}boards?${queryParams}`;
+        const url = `${baseURL}boards?${queryParams}` + (idBoardSource ? `&idBoardSource=${idBoardSource}` : "");
 
         try {
             const response = await axios.post(url);

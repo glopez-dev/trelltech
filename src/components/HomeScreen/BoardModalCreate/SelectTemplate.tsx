@@ -34,7 +34,9 @@ export default function SelectTemplate({ template, setTemplate }: SelectTemplate
         }
     })
 
+
     const handleRadioButtonPress = (value) => {
+        console.log("Template:", value);
         setTemplate(value);
     };
 
@@ -45,23 +47,22 @@ export default function SelectTemplate({ template, setTemplate }: SelectTemplate
             <RadioButton.Group
                 onValueChange={(value) => setTemplate(value)}
                 value={template}
-
             >
-                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('option1')} >
-                    <RadioButton value="option1" color="blue" uncheckedColor='gray' />
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('tableau simple')} >
+                    <RadioButton value="tableau simple" color="blue" uncheckedColor='gray' />
                     <Text style={styles.label}>Tableau Simple</Text>
                 </Pressable>
-                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('option2')} >
-                    <RadioButton value="option2" color="blue" uncheckedColor='gray' />
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('modele kanban')} >
+                    <RadioButton value="modele kanban" color="blue" uncheckedColor='gray' />
                     <Text style={styles.label}>Modèle Kanban</Text>
                 </Pressable>
-                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('option3')} >
-                    <RadioButton value="option3" color="blue" uncheckedColor='gray' />
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('conduite de projet')} >
+                    <RadioButton value="conduite de projet" color="blue" uncheckedColor='gray' />
                     <Text style={styles.label}>Conduite de projet</Text>
                 </Pressable>
 
-                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('option4')} >
-                    <RadioButton value="option4" color="blue" uncheckedColor='gray' />
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => handleRadioButtonPress('tableau agile')} >
+                    <RadioButton value="tableau agile" color="blue" uncheckedColor='gray' />
                     <Text style={styles.label}>Tableau Agile</Text>
                 </Pressable>
 
