@@ -29,8 +29,8 @@ const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
     return (
         <View style={{ justifyContent: 'flex-start', alignItems: 'center', marginTop: 30 }}>
             {!isInputVisible ? (
-                <View style={{ width: '90%', backgroundColor: '#ffffff', }}>
-                    <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, alignItems: 'center', borderRadius: 0, }} onPress={toggleInput}>
+                <View style={{ width: '90%', backgroundColor: '#ffffff', borderRadius: 10 }}>
+                    <TouchableOpacity style={{ backgroundColor: '#005385', padding: 10, alignItems: 'center', borderRadius: 10, }} onPress={toggleInput}>
                         <Text style={{ color: 'white', fontSize: 20 }}>Ajouter une liste</Text>
                     </TouchableOpacity>
                 </View>

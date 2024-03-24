@@ -47,7 +47,7 @@ export default function BoardModalCreate(props: BoardModalCreateProps): JSX.Elem
                             <View style={styles.modalBody}>
                                 <Text style={styles.modalBodyText}>Ajouter un tableau</Text>
                                 <View style={styles.modalBodyInput}>
-                                    <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre tableau" value={name} onChangeText={handleNameChange} />
+                                    <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre tableau" placeholderTextColor="black" value={name} onChangeText={handleNameChange} />
                                     <Button title="Add" onPress={add} color="#0c65e3" />
                                 </View>
                             </View>
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
 
         borderRadius: 5,
-        padding: 10,
+        padding: 5,
+
 
     },
     modalBodyInputText: {
