@@ -35,15 +35,16 @@ const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
                     </TouchableOpacity>
                 </View>
             ) : (
-                <View style={{ width: '90%', backgroundColor: '#000000', padding: 10 }}>
+                <View style={{ width: '90%', backgroundColor: '#ffffff', padding: 10 }}>
                     <TextInput
                         value={name}
                         onChangeText={handleChangeText}
                         onSubmitEditing={handleAdd}
                         placeholder="Entrez le nom de votre liste"
+
                         autoFocus
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, color: 'white' }}
-                        placeholderTextColor="white"
+                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, color: 'black' }}
+                        placeholderTextColor="black"
 
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
