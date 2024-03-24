@@ -4,6 +4,7 @@ import BoardScreenHeader from '@src/components/BoardScreen/BoardScreenHeader';
 import { useRoute } from '@react-navigation/native';
 import ListBoard from '@src/components/BoardScreen/ListBoard';
 import Board from '@src/api/Board';
+import BoardListsContextProvider from '@src/components/BoardScreen/BoardListsContextProvider';
 
 interface RouteParams {
     board: Board;
@@ -20,9 +21,13 @@ export function BoardScreen() {
     // @ts-ignore
     const { params }: RouteParams = route;
 
+    const board: Board = params.board;
+
     return (
         <View style={styles.container}>
-            <ListBoard board={params.board} />
+            <BoardListsContextProvider board={board}>
+                <ListBoard />
+            </BoardListsContextProvider>
         </View >
     );
 }
