@@ -60,7 +60,7 @@ const ButtonAddList: React.FC<{ boardId: string }> = ({ boardId }) => {
 
                         autoFocus
                         style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, color: 'black', borderRadius: 5 }}
-                        placeholderTextColor="white"
+                        placeholderTextColor="black"
 
                     />
 
