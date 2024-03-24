@@ -40,7 +40,7 @@ export default function WorkspaceModalAdd(props: WorkspaceModalAddProps): JSX.El
                             <View style={styles.modalBody}>
                                 <Text style={styles.modalBodyText}>Nom de votre Workspace</Text>
                                 <View style={styles.modalBodyInput}>
-                                    <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre Workspace" value={name} onChangeText={handleNameChange} />
+                                    <TextInput style={styles.modalBodyInputText} placeholder="Nom de votre Workspace" value={name} placeholderTextColor="black" onChangeText={handleNameChange} />
                                     <Button title="Add" onPress={add} />
                                 </View>
                             </View>
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
 
         borderRadius: 5,
-        padding: 10,
+        padding: 5,
+
 
     },
     modalBodyInputText: {
