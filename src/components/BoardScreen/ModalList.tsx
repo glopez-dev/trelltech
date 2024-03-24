@@ -27,22 +27,24 @@ const ModalList = () => {
             >
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                            <View style={{ width: '100%', backgroundColor: 'white', padding: 20, borderRadius: 10, minHeight: '45%', gap: 20 }}>
+                        <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+                            <View style={{ width: '100%', backgroundColor: 'white', padding: 20, borderRadius: 10, minHeight: '26%', }}>
 
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} >
-                                    <Text style={{ color: 'blue' }}>Fermer</Text>
+                                    <Text style={{ color: 'blue', alignSelf: 'flex-end', marginBottom: 15 }}>Fermer</Text>
                                 </TouchableOpacity>
 
-                                <ButtonDeleteList listId={list.id} />
-                                <ButtonUpdateList listId={list.id} name={list.name} />
+                                <View style={{ justifyContent: 'center', backgroundColor: 'white', }}>
+                                    <ButtonDeleteList listId={list.id} />
+                                    <ButtonUpdateList listId={list.id} name={list.name} />
+                                </View>
                             </View>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </Modal>
 
-        </View>
+        </View >
     );
 };
 
