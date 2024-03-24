@@ -15,9 +15,9 @@ export function cardScreenOptions({ navigation, route }): object {
 
     return {
         tabBarIcon: ({ color }) => <MaterialCommunityIcons name="card-text-outline" size={28} color={color} />,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#0c65e3',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
+
         tabBarLabel: 'Mes cartes',
         /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },

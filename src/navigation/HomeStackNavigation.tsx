@@ -18,9 +18,8 @@ const Stack = createNativeStackNavigator();
 export function homeScreenTabOptions(): object {
     return ({
         tabBarIcon: ({ color, size }) => <Fontisto name="trello" size={22} color={color} />,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#0c65e3',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
         tabBarLabel: 'Tableaux',
         headerShown: false,
     });

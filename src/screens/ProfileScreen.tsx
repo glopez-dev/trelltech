@@ -14,9 +14,9 @@ export function profileScreenOptions({ navigation, route }): object {
 
     return {
         tabBarIcon: ({ color, size }) => <FontAwesome name="user-circle-o" size={22} color={color} />,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#0c65e3',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
+
         tabBarLabel: 'Compte',
         /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },

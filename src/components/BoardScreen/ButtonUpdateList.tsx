@@ -31,24 +31,24 @@ const ButtonAddList: React.FC<{ listId: string; name: string }> = ({ listId, nam
         <View style={{ justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
             {!isInputVisible ? (
                 <View style={{ width: '100%', backgroundColor: '#ffffff' }}>
-                    <TouchableOpacity style={{ backgroundColor: '#000000', padding: 10, alignItems: 'center', borderRadius: 0 }} onPress={toggleInput}>
+                    <TouchableOpacity style={{ backgroundColor: '#0079be', padding: 10, alignItems: 'center', borderRadius: 0 }} onPress={toggleInput}>
                         <Text style={{ color: 'white', fontSize: 20 }}>Modifier le nom de la liste</Text>
                     </TouchableOpacity>
                 </View>
             ) : (
-                <View style={{ width: '100%', backgroundColor: '#000000', padding: 10 }}>
+                <View style={{ width: '100%', backgroundColor: '#0079be', padding: 10 }}>
                     <TextInput
                         value={newName}
                         onChangeText={handleChangeText}
                         onSubmitEditing={handleUpdate}
                         placeholder="Entrez le nom de votre liste"
                         autoFocus
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, color: 'white' }}
+                        style={{ borderColor: 'white', borderWidth: 1, padding: 10, marginBottom: 10, color: 'white' }}
                         placeholderTextColor="white"
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Button title="Annuler" onPress={handleCancel} />
-                        <Button title="Modifier" onPress={handleUpdate} />
+                        <Button title="Annuler" onPress={handleCancel} color="white" />
+                        <Button title="Modifier" onPress={handleUpdate} color="white" />
                     </View>
                 </View>
             )}

@@ -12,7 +12,13 @@ export const Tab = createBottomTabNavigator();
 export default function TabNavigator(): JSX.Element {
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: 'white',
+                }
+            }}
+        >
             <Tab.Screen name="Home" options={homeScreenTabOptions} component={HomeStackNavigation} />
             <Tab.Screen name="Card" options={cardScreenOptions} component={CardScreen} />
             <Tab.Screen name="Search" options={searchScreenOptions} component={SearchScreen} />

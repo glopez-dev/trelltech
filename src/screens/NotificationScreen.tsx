@@ -15,9 +15,9 @@ export function notificationScreenOptions({ navigation, route }): object {
 
     return {
         tabBarIcon: ({ color, size }) => <FontAwesome5 name="bell" size={22} color={color} />,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#0c65e3',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { backgroundColor: '#2c333b' },
+
         tabBarLabel: 'Notifications',
         /* Elone */
         headerStyle: { backgroundColor: '#2c333b' },
