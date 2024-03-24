@@ -3,7 +3,12 @@ import { TouchableOpacity, Text } from 'react-native';
 import List from '@src/api/List';
 import { useBoardListsContext } from './BoardListsContextProvider';
 
-const ButtonDeleteList = ({ list }: { list: List }) => {
+export type ButtonDeleteListProps = {
+    list: List;
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ButtonDeleteList = ({ list, setModalVisible }: ButtonDeleteListProps) => {
 
     const { removeList } = useBoardListsContext();
 
@@ -13,6 +18,7 @@ const ButtonDeleteList = ({ list }: { list: List }) => {
             if (!success) {
                 return;
             }
+            setModalVisible(false);
         } catch (error) {
             console.error("Error deleting list:", error);
         }

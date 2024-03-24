@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity, } from 'react-native';
 import List from '@src/api/List';
 
-const ButtonAddList: React.FC<{ listId: string; name: string }> = ({ listId, name }) => {
+export type ButtonUpdateListProps = {
+    list: List;
+    name: string;
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ButtonAddList: React.FC<ButtonUpdateListProps> = ({ list, name, setModalVisible }) => {
+
     const [isInputVisible, setInputVisible] = useState<boolean>(false);
     const [newName, setNewName] = useState(name);
 
@@ -20,11 +27,22 @@ const ButtonAddList: React.FC<{ listId: string; name: string }> = ({ listId, nam
     };
 
     const handleUpdate = async () => {
-        const list = await List.get(listId);
-        list.name = newName;
-        list.update();
-        console.log("Nom mis à jour :", newName);
-        setInputVisible(false);
+        try {
+            const updatedList = await List.get(list.id);
+
+            updatedList.name = newName;
+            const response = await updatedList.update();
+
+            if (!response) {
+                return;
+            }
+
+            setInputVisible(false);
+            setModalVisible(false);
+
+        } catch (error) {
+            console.error("[ButtonUpdateList] Error updating list:", error);
+        }
     };
 
     return (

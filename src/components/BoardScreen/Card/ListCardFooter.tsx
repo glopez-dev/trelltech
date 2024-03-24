@@ -128,7 +128,7 @@ function InputField({ setInputIsVisible }: Readonly<InputFieldProps>): JSX.Eleme
                 placeholder="Nom de la card"
                 autoFocus
                 style={styles.input}
-                placeholderTextColor="white"
+                placeholderTextColor="black"
             />
             <View style={styles.buttonContainer}>
                 <Button title="Annuler" onPress={handleCancel} />
