@@ -35,7 +35,7 @@ const ModalList = () => {
                                 </TouchableOpacity>
 
                                 <View style={{ justifyContent: 'center', backgroundColor: 'white', }}>
-                                    <ButtonDeleteList listId={list.id} />
+                                    <ButtonDeleteList list={list} />
                                     <ButtonUpdateList listId={list.id} name={list.name} />
                                 </View>
                             </View>

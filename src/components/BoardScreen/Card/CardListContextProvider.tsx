@@ -33,7 +33,7 @@ type CardListContextProviderProps = {
  * @param {List} list - Trello list for the card list.
  * @returns {JSX.Element}
  */
-export function CardListContextProvider({ children, list }: CardListContextProviderProps): JSX.Element {
+export function CardListContextProvider({ children, list }: Readonly<CardListContextProviderProps>): JSX.Element {
 
     const [cards, setCards] = React.useState<Card[]>([]);
 
