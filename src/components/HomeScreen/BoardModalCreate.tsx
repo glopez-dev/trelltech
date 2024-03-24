@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
     modalBodyText: {
         fontSize: 20,
         color: '#172b4c',
-        marginBottom: 10,
+        marginBottom: 15,
+        paddingLeft: 5,
+
     },
     modalBodyInput: {
         flexDirection: 'row',
