@@ -1,6 +1,8 @@
-# T-DEV-600-PAR_42
+# Epitech 6th semester - Mobile dev module - Trelltech
 
-## Technos
+Module: `T-DEV-600`
+
+## Technical Stack 
 
 - React Native
 - TypeScript
@@ -11,7 +13,7 @@
 
 ## Architecture
 
-Model View ViewModel
+Model View ViewModel (MVVM)
 
 **Resources** :
 
